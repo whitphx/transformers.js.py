@@ -1,0 +1,9 @@
+[flake8]
+exclude =
+    .git,
+    .venv,
+    __pycache__,
+    dist
+# Black compatible configs
+max-line-length = 88
+extend-ignore = E203
