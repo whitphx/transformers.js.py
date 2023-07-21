@@ -16,7 +16,7 @@ transformers = await import_transformers_js()
 pipeline = transformers.pipeline
 
 pipe = await pipeline('sentiment-analysis')
-out = await pipe._call('I love transformers!')
+out = await pipe('I love transformers!')
 print("out", out.to_py())
 `);
 }
