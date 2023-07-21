@@ -5,7 +5,7 @@ description = ""
 authors = ["Yuichiro Tachibana (Tsuchiya) <t.yic.yt@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
-packages = [{include = "transformers"}]
+packages = [{include = "transformers_js"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
