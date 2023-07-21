@@ -10,7 +10,14 @@ async function main() {
   await micropip.install(wheelUrl);
 
   await pyodide.runPythonAsync(`
-import transformers
+from transformers import import_transformers_js
+transformers = await import_transformers_js()
+
+pipeline = transformers.pipeline
+
+pipe = await pipeline('sentiment-analysis')
+out = await pipe._call('I love transformers!')
+print("out", out.to_py())
 `);
 }
 main();
