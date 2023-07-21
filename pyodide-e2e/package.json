@@ -4,11 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "run-p dev:*",
+    "dev:front": "vite",
+    "dev:python": "chokidar \"../transformers/**/*.py\" --initial -c \"cd .. && poetry build\"",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "npm-run-all": "^4.1.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.0"
   }
