@@ -17,7 +17,7 @@ pipeline = transformers.pipeline
 
 pipe = await pipeline('sentiment-analysis')
 out = await pipe('I love transformers!')
-print("out", out.to_py())
+print("out", out)
 `);
 }
 main();

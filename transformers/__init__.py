@@ -51,6 +51,8 @@ class TjsProxy:
 
 def wrap_or_unwrap_proxy_object(obj):
     if isinstance(obj, pyodide.ffi.JsProxy):
+        if obj.typeof == "object":
+            return obj.to_py()
         return TjsProxy(obj)
     elif isinstance(obj, pyodide.webloop.PyodideFuture):
         return obj.then(wrap_or_unwrap_proxy_object)
