@@ -68,7 +68,7 @@ async def import_transformers_js():
             ...transformers,
         };
     }
-    """
+    """  # noqa: E501
     )
     loadTransformersJsFn = js.loadTransformersJs
     await loadTransformersJsFn()
