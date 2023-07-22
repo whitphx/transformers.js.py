@@ -1,4 +1,4 @@
-import wheelUrl from "../../dist/transformers_js_py-0.1.0-py3-none-any.whl?url";
+import wheelUrl from "transformers-js-py.whl";  // This is the alias from vite.config.ts
 
 declare var loadPyodide: () => Promise<any>;
 
