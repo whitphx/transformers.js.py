@@ -64,6 +64,9 @@ async def import_transformers_js():
         """
     async function loadTransformersJs() {
         const transformers = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.4.1');
+
+        transformers.env.allowLocalModels = false;
+
         globalThis._transformers = {  // Convert a module to an object.
             ...transformers,
         };
