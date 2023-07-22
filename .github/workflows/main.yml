@@ -1,0 +1,80 @@
+name: Test, Build, and Publish
+
+on: [push]
+
+env:
+  python-version: "3.11.2"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python-version }}
+
+      # Copied from https://github.com/python-poetry/poetry/blob/c71deb4b75b3672116b3199b2f9ab7e2bf520844/.github/workflows/main.yml#L46-L96
+      - name: Get full Python version
+        id: full-python-version
+        run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
+
+      - name: Bootstrap poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python - -y
+
+      - name: Update PATH
+        if: ${{ matrix.os != 'Windows' }}
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Configure poetry
+        run: poetry config virtualenvs.in-project true
+
+      - name: Set up cache
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Ensure cache is healthy
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: |
+          # `timeout` is not available on macOS, so we define a custom function.
+          [ "$(command -v timeout)" ] || function timeout() { perl -e 'alarm shift; exec @ARGV' "$@"; }
+
+          # Using `timeout` is a safeguard against the Poetry command hanging for some reason.
+          timeout 10s poetry run pip --version || rm -rf .venv
+
+      - name: Check lock file
+        run: poetry lock --check
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Lint with black, isort, and flake8
+        run: |
+          poetry run black . --check
+          poetry run isort . --check --resolve-all-configs
+          poetry run flake8
+
+      - name: Package
+        run: poetry build
+
+      - name: Upload the built files as an artifact
+        uses: actions/upload-artifact@v3
+        if: ${{ ! startsWith(github.ref, 'refs/tags/v') }}
+        with:
+          path: dist
+          name: transformers_js_py-${{ github.sha }}.tgz
+
+      - name: Upload the built files as an artifact (when pushed with a version tag)
+        uses: actions/upload-artifact@v3
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          path: dist
+          name: transformers_js_py-${{ github.ref_name }}.tgz
