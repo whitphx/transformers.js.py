@@ -63,7 +63,8 @@ async def import_transformers_js():
     pyodide.code.run_js(
         """
     async function loadTransformersJs() {
-        const transformers = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.4.1');
+        const isBrowser = typeof window !== 'undefined';
+        const transformers = await import(isBrowser ? 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.4.2' : '@xenova/transformers');
 
         transformers.env.allowLocalModels = false;
 
