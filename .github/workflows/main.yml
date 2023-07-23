@@ -78,9 +78,50 @@ jobs:
           path: dist
           name: transformers_js_py-${{ github.ref_name }}.tgz
 
+  test-pyodide-e2e:
+    if: ${{ !failure() }}  # `!failure()` is necessary to avoid skipping this job after successful build: https://github.com/actions/runner/issues/491
+    needs: [test-and-build]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python-version }}
+
+      # Copied from https://github.com/python-poetry/poetry/blob/c71deb4b75b3672116b3199b2f9ab7e2bf520844/.github/workflows/main.yml#L46-L96
+      - name: Get full Python version
+        id: full-python-version
+        run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
+
+      - name: Bootstrap poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python - -y
+
+      - name: Update PATH
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: transformers_js_py-${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || github.sha  }}.tgz
+          path: dist
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
+          run_install: |
+            cwd: pyodide-e2e
+
+      - run: pnpm test
+        working-directory: pyodide-e2e
+
+
   publish:
     if: ${{ !failure() && startsWith(github.ref, 'refs/tags/v') }}  # `!failure()` is necessary to avoid skipping this job after successful build: https://github.com/actions/runner/issues/491
-    needs: [test-and-build]
+    needs: [test-pyodide-e2e]
 
     permissions:
       contents: write  # Necessary for creating releases: https://github.com/softprops/action-gh-release#permissions
