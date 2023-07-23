@@ -24,29 +24,35 @@ class TjsModuleProxy:
 
 class TjsProxy:
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
-        self.js_obj = js_obj
+        self._js_obj = js_obj
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
-        if hasattr(self.js_obj, "_call"):
+        if hasattr(self._js_obj, "_call"):
             # Transformers.js uses a custom _call() method
             # to make the JS classes callable.
             # https://github.com/xenova/transformers.js/blob/2.4.1/src/utils/core.js#L45-L77
-            res = self.js_obj._call(*args, **kwds)
+            res = self._js_obj._call(*args, **kwds)
         else:
-            res = self.js_obj(*args, **kwds)
+            res = self._js_obj(*args, **kwds)
 
         return wrap_or_unwrap_proxy_object(res)
 
     def __getattr__(self, name: str) -> Any:
-        res = getattr(self.js_obj, name)
+        res = getattr(self._js_obj, name)
         return wrap_or_unwrap_proxy_object(res)
 
     def __getitem__(self, key: Any) -> Any:
-        res = self.js_obj[key]
+        res = self._js_obj[key]
         return wrap_or_unwrap_proxy_object(res)
 
     def __setitem__(self, key: Any, value: Any) -> None:
-        self.js_obj[key] = value
+        self._js_obj[key] = value
+
+    def __setattr__(self, __name: str, __value: Any) -> None:
+        if __name == "_js_obj":
+            super().__setattr__("_js_obj", __value)
+        else:
+            setattr(self._js_obj, __name, __value)
 
 
 def wrap_or_unwrap_proxy_object(obj):
