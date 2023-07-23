@@ -65,12 +65,15 @@ def wrap_or_unwrap_proxy_object(obj):
     return obj
 
 
+TRANSFORMERS_JS_CDN_VERSION = "2.4.2"
+
+
 async def import_transformers_js():
     pyodide.code.run_js(
         """
     async function loadTransformersJs() {
         const isBrowser = typeof window !== 'undefined';
-        const transformers = await import(isBrowser ? 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.4.2' : '@xenova/transformers');
+        const transformers = await import(isBrowser ? 'https://cdn.jsdelivr.net/npm/@xenova/transformers@%s' : '@xenova/transformers');
 
         transformers.env.allowLocalModels = false;
 
@@ -79,6 +82,7 @@ async def import_transformers_js():
         };
     }
     """  # noqa: E501
+        % (TRANSFORMERS_JS_CDN_VERSION)
     )
     loadTransformersJsFn = js.loadTransformersJs
     await loadTransformersJsFn()
