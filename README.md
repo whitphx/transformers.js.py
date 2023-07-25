@@ -1,5 +1,5 @@
 # Transformers.js.py 🤗
-Use [Transformers.js](https://huggingface.co/docs/transformers.js/index) on [Pyodide](https://pyodide.org/en/stable/) and Pyodide-based frameworks such as [stlite (Streamlit)](https://github.com/whitphx/stlite), [PyScript](https://pyscript.net/), and so on.
+Use [Transformers.js](https://huggingface.co/docs/transformers.js/index) on [Pyodide](https://pyodide.org/en/stable/) and Pyodide-based frameworks such as [JupyterLite](https://jupyterlite.readthedocs.io/en/latest/), [stlite (Streamlit)](https://github.com/whitphx/stlite), [Shinylive (Shiny for Python)](https://shiny.posit.co/py/docs/shinylive.html), [PyScript](https://pyscript.net/), and so on.
 
 The original [Transformers](https://huggingface.co/docs/transformers/index) can't be used on a browser environment. [Transformers.js](https://huggingface.co/docs/transformers.js/index) is a JavaScript version of Transformers installable on browsers, but we can't use it from Pyodide.
 This package is a thin wrapper of Transformers.js to proxy its API to Pyodide.
