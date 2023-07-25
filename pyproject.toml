@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "transformers-js-py"
-version = "0.1.8"
+version = "0.1.9"
 description = ""
 authors = ["Yuichiro Tachibana (Tsuchiya) <t.yic.yt@gmail.com>"]
 license = "Apache-2.0"
