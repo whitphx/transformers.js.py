@@ -46,6 +46,7 @@ out = await pipe(text)
 </tr>
 </table>
 
+See the [Transformers.js document](https://github.com/xenova/transformers.js/) for available features.
 
 ## Examples
 
