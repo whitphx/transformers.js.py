@@ -15,8 +15,8 @@ The API is more like Transformers.js than the original Transformers.
 
 <table>
 <tr>
-<th width="440px" align="center"><b>Transformers.js</b></th>
-<th width="440px" align="center"><b>Transformers.js.py</b></th>
+<th width="50%" align="center"><b>Transformers.js</b></th>
+<th width="50%" align="center"><b>Transformers.js.py</b></th>
 </tr>
 <tr>
 <td>
