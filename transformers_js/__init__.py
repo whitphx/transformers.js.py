@@ -5,6 +5,8 @@ import pyodide.code
 import pyodide.ffi
 import pyodide.webloop
 
+from .file_utils import as_url
+
 
 class TjsModuleProxy:
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
@@ -90,3 +92,6 @@ async def import_transformers_js():
 
     transformers = js._transformers
     return TjsModuleProxy(transformers)
+
+
+__all__ = ["as_url", "import_transformers_js"]
