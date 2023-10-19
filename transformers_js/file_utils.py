@@ -1,4 +1,5 @@
 import warnings
+from typing import Union
 
 import pyodide.ffi
 from js import URL as js_URL
@@ -10,7 +11,7 @@ except ImportError:
     js_Blob = None
 
 
-def as_url(file_path: str) -> str:
+def as_url(data_or_file_path: Union[str, bytes]) -> str:
     """For example, `pipeline('zero-shot-image-classification')`
     requires a URL of the input image file in the browser environment.
     This function converts a file path on Pyodide's virtual file system
@@ -24,8 +25,17 @@ def as_url(file_path: str) -> str:
     if js_Blob is None:
         raise RuntimeError("Blob is not available in this environment")
 
-    with open(file_path, "rb") as f:
-        data = f.read()
+    if isinstance(data_or_file_path, str):
+        with open(data_or_file_path, "rb") as f:
+            data = f.read()
+    elif isinstance(data_or_file_path, bytes):
+        data = data_or_file_path
+    else:
+        raise TypeError(
+            "data_or_file_path must be str or bytes, "
+            f"but got {type(data_or_file_path)}"
+        )
+
     js_data = pyodide.ffi.to_js(data)
     js_blob_obj = js_Blob.new([js_data])
     return js_URL.createObjectURL(js_blob_obj)
