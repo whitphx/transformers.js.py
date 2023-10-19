@@ -28,6 +28,9 @@ class TjsProxy:
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         if hasattr(self._js_obj, "_call"):
+            args = pyodide.ffi.to_js(args)
+            kwds = pyodide.ffi.to_js(kwds)
+
             # Transformers.js uses a custom _call() method
             # to make the JS classes callable.
             # https://github.com/xenova/transformers.js/blob/2.4.1/src/utils/core.js#L45-L77
