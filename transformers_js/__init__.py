@@ -5,6 +5,8 @@ import pyodide.code
 import pyodide.ffi
 import pyodide.webloop
 
+from .file_utils import as_url
+
 
 class TjsModuleProxy:
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
@@ -28,6 +30,9 @@ class TjsProxy:
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         if hasattr(self._js_obj, "_call"):
+            args = pyodide.ffi.to_js(args)
+            kwds = pyodide.ffi.to_js(kwds)
+
             # Transformers.js uses a custom _call() method
             # to make the JS classes callable.
             # https://github.com/xenova/transformers.js/blob/2.4.1/src/utils/core.js#L45-L77
@@ -87,3 +92,6 @@ async def import_transformers_js():
 
     transformers = js._transformers
     return TjsModuleProxy(transformers)
+
+
+__all__ = ["as_url", "import_transformers_js"]
