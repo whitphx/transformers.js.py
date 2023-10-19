@@ -5,7 +5,7 @@ import pyodide.code
 import pyodide.ffi
 import pyodide.webloop
 
-from .file_utils import as_url
+from .url import as_url
 
 
 class TjsModuleProxy:
