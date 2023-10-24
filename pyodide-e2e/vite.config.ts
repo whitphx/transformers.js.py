@@ -25,5 +25,13 @@ export default defineConfig(async () => {
       }
     },
     assetsInclude: ["**/*.whl"],
+    test: {
+      testTimeout: 60 * 1000,
+      browser: {
+        enabled: true,
+        name: 'chrome', // browser name is required
+        headless: true,
+      }
+    },
   }
 })

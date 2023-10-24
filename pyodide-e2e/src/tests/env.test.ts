@@ -1,5 +1,3 @@
-// @vitest-environment node
-
 import type { PyodideInterface } from "pyodide";
 import { beforeEach, describe, it, expect } from "vitest";
 import { setupPyodideForTest } from "./utils";
