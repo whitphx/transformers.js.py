@@ -87,6 +87,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install Chromium
+        run: sudo apt-get update && sudo apt-get install chromium-browser
+
       - name: Set up Python ${{ env.python-version }}
         uses: actions/setup-python@v4
         with:
