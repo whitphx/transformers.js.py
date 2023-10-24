@@ -7,7 +7,7 @@ export const IS_NODE = typeof window === 'undefined';
 
 export async function setupPyodideForTest(): Promise<PyodideInterface> {
   const pyodide = await loadPyodide({
-    indexURL: "node_modules/pyodide",  // pnpm puts pyodide at this path
+    indexURL: path.resolve("node_modules/pyodide"),  // pnpm puts pyodide at this path
   });
   await pyodide.loadPackage("micropip");
   const micropip = pyodide.pyimport("micropip");
