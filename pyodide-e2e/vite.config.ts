@@ -5,16 +5,15 @@ import { exec } from "child_process"
 const isCI = !!process.env['CI'];
 
 const getTransformersJsPyVersion = (): Promise<string> => new Promise((resolve, reject) => {
-  resolve("0.2.1");
-  // exec("poetry version -s", {
-  //   cwd: path.resolve(__dirname, ".."),
-  // }, (err, stdout, stderr) => {
-  //   if (err) {
-  //     reject(err);
-  //   } else {
-  //     resolve(stdout.trim());
-  //   }
-  // });
+  exec("poetry version -s", {
+    cwd: path.resolve(__dirname, ".."),
+  }, (err, stdout, stderr) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(stdout.trim());
+    }
+  });
 })
 
 export default defineConfig(async () => {
