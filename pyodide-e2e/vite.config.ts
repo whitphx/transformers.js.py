@@ -2,8 +2,6 @@ import { defineConfig } from 'vite'
 import path from "path";
 import { exec } from "child_process"
 
-const isCI = !!process.env['CI'];
-
 const getTransformersJsPyVersion = (): Promise<string> => new Promise((resolve, reject) => {
   exec("poetry version -s", {
     cwd: path.resolve(__dirname, ".."),
@@ -32,7 +30,7 @@ export default defineConfig(async () => {
       browser: {
         enabled: true,
         name: 'chrome', // browser name is required
-        headless: isCI,
+        headless: true,
       }
     },
   }
