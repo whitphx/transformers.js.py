@@ -1,15 +1,15 @@
 import type { PyodideInterface } from "pyodide";
-import { beforeEach, describe, it, expect } from "vitest";
+import { beforeEach, suite, test, expect } from "vitest";
 import { setupPyodideForTest } from "./utils";
 
-describe("transformers.pipeline", () => {
+suite("transformers.pipeline", () => {
   let pyodide: PyodideInterface;
 
   beforeEach(async () => {
     pyodide = await setupPyodideForTest();
   });
 
-  it("works with zero-shot-image-classification model", async () => {
+  test("zero-shot-image-classification with a local file wrapped by as_url()", async () => {
     await fetch("https://huggingface.co/spaces/gradio/image_mod/resolve/main/images/lion.jpg")
       .then((response) => response.blob())
       .then((blob) => blob.arrayBuffer())
