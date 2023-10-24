@@ -33,7 +33,6 @@ export default defineConfig(async () => {
         enabled: true,
         name: 'chrome', // browser name is required
         headless: isCI,
-        driver: 'playwright',
       }
     },
   }
