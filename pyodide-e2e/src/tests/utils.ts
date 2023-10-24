@@ -1,13 +1,13 @@
 import path from "path"
 import fsPromises from "fs/promises";
-import { loadPyodide, type PyodideInterface } from "pyodide";
+import { loadPyodide, type PyodideInterface, version } from "pyodide";
 import wheelUrl from "transformers-js-py.whl";  // This is the alias from vite.config.ts
 
 export const IS_NODE = typeof window === 'undefined';
 
 export async function setupPyodideForTest(): Promise<PyodideInterface> {
   const pyodide = await loadPyodide({
-    indexURL: path.resolve("node_modules/pyodide"),  // pnpm puts pyodide at this path
+    indexURL: `https://cdn.jsdelivr.net/pyodide/v${version}/full/`
   });
   await pyodide.loadPackage("micropip");
   const micropip = pyodide.pyimport("micropip");
