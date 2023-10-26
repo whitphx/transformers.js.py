@@ -243,7 +243,7 @@ app = App(app_ui, server, debug=True)
 
 ```
 
-### HoloViz Panel
+### Panel
 
 ![HoloViz Panel Transformers App](docs/images/Panel.png)
 
