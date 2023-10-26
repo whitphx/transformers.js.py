@@ -102,6 +102,63 @@ if text:
     st.write(out)
 ```
 
+### Gradio-lite
+
+![Gradio-lite screenshot](./docs/images/Gradio-lite.png)
+
+Save the following code as an HTML file and open it in a browser.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/@gradio/lite/dist/lite.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gradio/lite/dist/lite.css" />
+  <title>Transformers.js with Gradio-lite</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+    gradio-lite {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<gradio-lite>
+
+<gradio-requirements>
+transformers_js_py
+</gradio-requirements>
+
+<gradio-file name="app.py" entrypoint>
+import gradio as gr
+from transformers_js import import_transformers_js
+
+transformers = await import_transformers_js()
+pipeline = transformers.pipeline
+
+pipe = await pipeline('sentiment-analysis')
+
+async def process(text):
+    return await pipe(text)
+
+demo = gr.Interface(fn=process, inputs="text", outputs="json")
+
+demo.launch()
+</gradio-file>
+
+</gradio-lite>
+</body>
+</html>
+```
+
+For more details about Gradio-lite, please read [Gradio-Lite: Serverless Gradio Running Entirely in Your Browser (huggingface.co)](https://huggingface.co/blog/gradio-lite).
+
 ### Shinylive
 
 [![Shinylive screenshot](./docs/images/Shinylive.png)](https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhHqMmZOlAgsag+HRYB9AFYte-QcL4ChxrTr0G5J86tVpUxpUwC8TEpYUADmcMY0ADZK0gAUqkyJgRwYXKgKZA5wAB5k8WAUucr4TMUAKjk2EOlkxRKokVCEcGzEkbJ0fsUAouRympXFAJR4CUlBxBk1WbnGAG5yAEZQZHz5ZEVgI6pDHhCqsjSscgt0sWkZEpNkNRIscCwsHKRDiGOJAALXNe9MH1IQDoYQq1CBJJhQFjYCCEJiHTS5WKvX7gjhHCDEKo1YGVJFvMHgwmJKRkBR0MHFSn7AlExy6fR0QwWAJQADuUA4Nis9jpzkZrjMLCRKKSqA4qDgkS4cH8mm09JcRiw4sl0r2RMSYolsrZHOEWtVEDg+Xu5D4lDIAFodFBItgnixhuqNdcdezOUwDedqhkcYihrtqRrJHBSeTWFpYtdA3svLKxKhYl4fBw7ic5BJZIsFCE-GU6Ao4IGwABfPDgaDwahSACOSik8HILGBuXwRFIFCoyF5DKZlvMlpwpYAukA)
