@@ -157,6 +157,8 @@ demo.launch()
 </html>
 ```
 
+[👉 Online demo](https://huggingface.co/spaces/abidlabs/gradio-lite-classify)
+
 For more details about Gradio-lite, please read [Gradio-Lite: Serverless Gradio Running Entirely in Your Browser (huggingface.co)](https://huggingface.co/blog/gradio-lite).
 
 ### Shinylive
