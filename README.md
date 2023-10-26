@@ -277,7 +277,7 @@ async def _get_pipeline(model):
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     pipe = await _get_pipeline(MODEL)
-    response = await pipe("I love transformers!")
+    response = await pipe(contents)
     label, score = response[0]["label"], round(response[0]["score"], 2)
     return f"""I feel a {label} vibe here (score: {score})"""
 
@@ -290,7 +290,6 @@ welcome_message = pn.chat.ChatMessage(
 pn.chat.ChatInterface(
     welcome_message,
     callback=callback,
-    user="woman",
     callback_user="Hugging Face",
     placeholder_text="Loading the model ...",
 ).servable()
