@@ -75,7 +75,7 @@ async def import_transformers_js(version: str = "latest"):
         """
     async function loadTransformersJs(version) {
         const isBrowserMainThread = typeof window !== 'undefined';
-        const isWorker = typeof self !== 'undefined' && typeof self.postMessage === 'function' && typeof self.importScripts === 'function';
+        const isWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
         const isBrowser = isBrowserMainThread || isWorker;
         const transformers = await import(isBrowser ? 'https://cdn.jsdelivr.net/npm/@xenova/transformers@' + version : '@xenova/transformers');
 
