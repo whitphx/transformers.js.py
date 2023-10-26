@@ -1,11 +1,15 @@
+/// <reference lib="webworker" />
+
+console.log("WebWorker started");
+
 import type Pyodide from "pyodide"
 
 import wheelUrl from "transformers-js-py.whl";  // This is the alias from vite.config.ts
 
-declare let loadPyodide: () => Promise<Pyodide.PyodideInterface>;
+import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.mjs";
 
 async function main() {
-  const pyodide = await loadPyodide();
+  const pyodide: Pyodide.PyodideInterface = await loadPyodide();
 
   await pyodide.loadPackage("micropip");
   const micropip = pyodide.pyimport("micropip");
@@ -22,5 +26,5 @@ out = await pipe('I love transformers!')
 print("out", out)
 `);
 }
+
 main();
-const worker = new Worker(new URL('./worker.ts', import.meta.url), { type: "module" })
