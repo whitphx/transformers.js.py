@@ -242,3 +242,69 @@ app = App(app_ui, server, debug=True)
 </html>
 
 ```
+
+### Panel
+
+![HoloViz Panel Transformers App](docs/images/Panel.png)
+
+With [HoloViz Panel](https://panel.holoviz.org) you develop your app on your laptop and use [`panel convert`](https://panel.holoviz.org/how_to/wasm/convert.html) to convert it to [Pyodide](https://pyodide.org/en/stable/) or [PyScript](https://pyscript.net/).
+
+Install the requirements
+
+```bash
+pip install panel transformers_js_py 
+```
+
+Create the **app.py** file in your favorite editor or IDE.
+
+```python
+import panel as pn
+
+MODEL = "sentiment-analysis"
+
+pn.extension(design="material")
+
+pn.chat.ChatMessage.default_avatars["hugging face"] = "🤗"
+
+@pn.cache
+async def _get_pipeline(model):
+    from transformers_js import import_transformers_js
+
+    transformers = await import_transformers_js()
+    pipeline = transformers.pipeline
+    return await pipeline(model)
+
+
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
+    pipe = await _get_pipeline(MODEL)
+    response = await pipe(contents)
+    label, score = response[0]["label"], round(response[0]["score"], 2)
+    return f"""I feel a {label} vibe here (score: {score})"""
+
+
+welcome_message = pn.chat.ChatMessage(
+    f"I'm a Hugging Face Transformers `{MODEL}` model.\n\nPlease *send a message*!",
+    user="Hugging Face",
+)
+
+pn.chat.ChatInterface(
+    welcome_message,
+    callback=callback,
+    callback_user="Hugging Face",
+    placeholder_text="Loading the model ...",
+).servable()
+```
+
+Convert the app to [Pyodide](https://pyodide.org/en/stable/). For more options like *hot reload* check out the [Panel Convert](https://panel.holoviz.org/how_to/wasm/convert.html) guide.
+
+```bash
+panel convert app.py --to pyodide-worker --out pyodide --requirements transformers_js_py
+```
+
+Now Serve the app
+
+```bash
+python -m http.server -d pyodide
+```
+
+Finally you can try out the app by opening [localhost:8000/app.html](http://localhost:8000/app.html)
