@@ -247,7 +247,7 @@ app = App(app_ui, server, debug=True)
 
 ![HoloViz Panel Transformers App](docs/images/Panel.png)
 
-With [HoloViz Panel](https://panel.holoviz.org) you develop your app on your laptop as normally and use [`panel convert app.py`](https://panel.holoviz.org/how_to/wasm/convert.html) to convert it to [Pyodide](https://pyodide.org/en/stable/) or [PyScript](https://pyscript.net/).
+With [HoloViz Panel](https://panel.holoviz.org) you develop your app on your laptop and use [`panel convert`](https://panel.holoviz.org/how_to/wasm/convert.html) to convert it to [Pyodide](https://pyodide.org/en/stable/) or [PyScript](https://pyscript.net/).
 
 Install the requirements
 
