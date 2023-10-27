@@ -1,11 +1,12 @@
 [tool.poetry]
 name = "transformers-js-py"
-version = "0.3.1"
+version = "0.3.2"
 description = ""
 authors = ["Yuichiro Tachibana (Tsuchiya) <t.yic.yt@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
 packages = [{include = "transformers_js"}]
+repository = "https://github.com/whitphx/transformers.js.py"
 
 [tool.poetry.dependencies]
 python = "^3.10"

@@ -350,5 +350,5 @@ pn.chat.ChatInterface(
 ).servable()
 ```
 
-For more chat examples see [Panel Chat Examples](https://holoviz-topics.github.io/panel-chat-examples/)
+For more chat examples see [Panel Chat Examples](https://holoviz-topics.github.io/panel-chat-examples/).
 </detail>
