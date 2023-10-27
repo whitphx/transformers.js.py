@@ -284,11 +284,7 @@ async def _response(text, event):
 
 
 pn.Column(
-    text_input,
-    button,
-    pn.pane.JSON(_response, depth=2),
-    sizing_mode="fixed",
-    width=400,
+    text_input, button, pn.pane.JSON(_response, depth=2)
 ).servable()
 ```
 
