@@ -245,9 +245,9 @@ app = App(app_ui, server, debug=True)
 
 ### Panel
 
-![HoloViz Panel Transformers App](docs/images/Panel.png)
-
 With [HoloViz Panel](https://panel.holoviz.org) you develop your app on your laptop and use [`panel convert`](https://panel.holoviz.org/how_to/wasm/convert.html) to convert it to [Pyodide](https://pyodide.org/en/stable/) or [PyScript](https://pyscript.net/).
+
+![HoloViz Panel Transformers App](docs/images/Panel.png)
 
 Install the requirements
 
@@ -256,6 +256,62 @@ pip install panel transformers_js_py
 ```
 
 Create the **app.py** file in your favorite editor or IDE.
+
+```python
+import panel as pn
+
+pn.extension(sizing_mode="stretch_width", design="material")
+
+
+@pn.cache
+async def _get_pipeline(model="sentiment-analysis"):
+    from transformers_js import import_transformers_js
+
+    transformers = await import_transformers_js()
+    return await transformers.pipeline(model)
+
+
+text_input = pn.widgets.TextInput(placeholder="Send a message", name="Message")
+button = pn.widgets.Button(name="Send", icon="send", align="end", button_type="primary")
+
+
+@pn.depends(text_input, button)
+async def _response(text, event):
+    if not text:
+        return {}
+    pipe = await _get_pipeline()
+    return await pipe(text)
+
+
+pn.Column(
+    text_input,
+    button,
+    pn.pane.JSON(_response, depth=2),
+    sizing_mode="fixed",
+    width=400,
+).servable()
+```
+
+Convert the app to [Pyodide](https://pyodide.org/en/stable/). For more options like *hot reload* check out the [Panel Convert](https://panel.holoviz.org/how_to/wasm/convert.html) guide.
+
+```bash
+panel convert app.py --to pyodide-worker --out pyodide --requirements transformers_js_py
+```
+
+Now Serve the app
+
+```bash
+python -m http.server -d pyodide
+```
+
+Finally you can try out the app by opening [localhost:8000/app.html](http://localhost:8000/app.html)
+
+<detail>
+    <summary><h4>Panel Chat App</h4></summary>
+
+You can also use `transformers_js_py` with Panels Chat Components
+
+![HoloViz Panel Transformers App](docs/images/PanelChat.png)
 
 ```python
 import panel as pn
@@ -271,8 +327,7 @@ async def _get_pipeline(model):
     from transformers_js import import_transformers_js
 
     transformers = await import_transformers_js()
-    pipeline = transformers.pipeline
-    return await pipeline(model)
+    return await transformers.pipeline(model)
 
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
@@ -295,16 +350,5 @@ pn.chat.ChatInterface(
 ).servable()
 ```
 
-Convert the app to [Pyodide](https://pyodide.org/en/stable/). For more options like *hot reload* check out the [Panel Convert](https://panel.holoviz.org/how_to/wasm/convert.html) guide.
-
-```bash
-panel convert app.py --to pyodide-worker --out pyodide --requirements transformers_js_py
-```
-
-Now Serve the app
-
-```bash
-python -m http.server -d pyodide
-```
-
-Finally you can try out the app by opening [localhost:8000/app.html](http://localhost:8000/app.html)
+For more chat examples see [Panel Chat Examples](https://holoviz-topics.github.io/panel-chat-examples/)
+</detail>
