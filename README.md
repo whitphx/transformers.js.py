@@ -306,10 +306,10 @@ python -m http.server -d pyodide
 
 Finally you can try out the app by opening [localhost:8000/app.html](http://localhost:8000/app.html)
 
-<detail>
-    <summary>Panel Chat App</summary>
+<details>
+    <summary><h4>Panel Chat App Example</h4></summary>
 
-You can also use `transformers_js_py` with Panels Chat Components
+You can also use `transformers_js_py` with [Panels Chat Components](https://panel.holoviz.org/reference/index.html#chat).
 
 ![HoloViz Panel Transformers App](docs/images/PanelChat.png)
 
@@ -351,4 +351,4 @@ pn.chat.ChatInterface(
 ```
 
 For more chat examples see [Panel Chat Examples](https://holoviz-topics.github.io/panel-chat-examples/).
-</detail>
+</details>
