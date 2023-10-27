@@ -307,7 +307,7 @@ python -m http.server -d pyodide
 Finally you can try out the app by opening [localhost:8000/app.html](http://localhost:8000/app.html)
 
 <detail>
-    <summary><h4>Panel Chat App</h4></summary>
+    <summary>Panel Chat App</summary>
 
 You can also use `transformers_js_py` with Panels Chat Components
 
