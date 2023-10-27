@@ -290,7 +290,7 @@ Convert the app to [Pyodide](https://pyodide.org/en/stable/). For more options l
 panel convert app.py --to pyodide-worker --out pyodide --requirements transformers_js_py
 ```
 
-Now Serve the app
+Now serve the app
 
 ```bash
 python -m http.server -d pyodide
