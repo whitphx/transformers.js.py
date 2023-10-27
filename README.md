@@ -245,7 +245,7 @@ app = App(app_ui, server, debug=True)
 
 ### Panel
 
-With [HoloViz Panel](https://panel.holoviz.org) you develop your app on your laptop and use [`panel convert`](https://panel.holoviz.org/how_to/wasm/convert.html) to convert it to [Pyodide](https://pyodide.org/en/stable/) or [PyScript](https://pyscript.net/).
+With [HoloViz Panel](https://panel.holoviz.org) you develop your app on your laptop and convert it to [Pyodide](https://pyodide.org/en/stable/) or [PyScript](https://pyscript.net/) by running [`panel convert`](https://panel.holoviz.org/how_to/wasm/convert.html).
 
 ![HoloViz Panel Transformers App](docs/images/Panel.png)
 
@@ -262,11 +262,9 @@ import panel as pn
 
 pn.extension(sizing_mode="stretch_width", design="material")
 
-
 @pn.cache
 async def _get_pipeline(model="sentiment-analysis"):
     from transformers_js import import_transformers_js
-
     transformers = await import_transformers_js()
     return await transformers.pipeline(model)
 
@@ -274,14 +272,12 @@ async def _get_pipeline(model="sentiment-analysis"):
 text_input = pn.widgets.TextInput(placeholder="Send a message", name="Message")
 button = pn.widgets.Button(name="Send", icon="send", align="end", button_type="primary")
 
-
 @pn.depends(text_input, button)
 async def _response(text, event):
     if not text:
         return {}
     pipe = await _get_pipeline()
     return await pipe(text)
-
 
 pn.Column(
     text_input, button, pn.pane.JSON(_response, depth=2)
@@ -313,18 +309,15 @@ You can also use `transformers_js_py` with [Panels Chat Components](https://pane
 import panel as pn
 
 MODEL = "sentiment-analysis"
+pn.chat.ChatMessage.default_avatars["hugging face"] = "🤗"
 
 pn.extension(design="material")
-
-pn.chat.ChatMessage.default_avatars["hugging face"] = "🤗"
 
 @pn.cache
 async def _get_pipeline(model):
     from transformers_js import import_transformers_js
-
     transformers = await import_transformers_js()
     return await transformers.pipeline(model)
-
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     pipe = await _get_pipeline(MODEL)
@@ -332,17 +325,14 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     label, score = response[0]["label"], round(response[0]["score"], 2)
     return f"""I feel a {label} vibe here (score: {score})"""
 
-
 welcome_message = pn.chat.ChatMessage(
     f"I'm a Hugging Face Transformers `{MODEL}` model.\n\nPlease *send a message*!",
     user="Hugging Face",
 )
 
 pn.chat.ChatInterface(
-    welcome_message,
-    callback=callback,
-    callback_user="Hugging Face",
-    placeholder_text="Loading the model ...",
+    welcome_message, placeholder_text="Loading the model ...",
+    callback=callback, callback_user="Hugging Face",
 ).servable()
 ```
 
