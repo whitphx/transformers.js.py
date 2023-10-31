@@ -20,7 +20,7 @@ suite("transformers.pipeline", () => {
       });
 
     await pyodide.runPythonAsync(`
-from transformers_js import import_transformers_js, as_url
+from transformers_js_py import import_transformers_js, as_url
 
 transformers = await import_transformers_js()
 pipeline = transformers.pipeline
