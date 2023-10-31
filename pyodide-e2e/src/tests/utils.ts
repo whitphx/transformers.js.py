@@ -26,7 +26,7 @@ export async function setupPyodideForTest(): Promise<PyodideInterface> {
   }
 
   await pyodide.runPythonAsync(`
-from transformers_js import import_transformers_js
+from transformers_js_py import import_transformers_js
 transformers = await import_transformers_js()
   `)
 

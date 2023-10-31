@@ -35,7 +35,7 @@ let out = await pipe('I love transformers!');
 <td>
 
 ```python
-from transformers_js import import_transformers_js
+from transformers_js_py import import_transformers_js
 
 transformers = await import_transformers_js()
 pipeline = transformers.pipeline
@@ -64,7 +64,7 @@ See the [Transformers.js document](https://github.com/xenova/transformers.js/) f
 ```python
 %pip install transformers_js_py
 
-from transformers_js import import_transformers_js
+from transformers_js_py import import_transformers_js
 
 transformers = await import_transformers_js()
 pipeline = transformers.pipeline
@@ -85,7 +85,7 @@ print(out)
 ```python
 import streamlit as st
 
-from transformers_js import import_transformers_js
+from transformers_js_py import import_transformers_js
 
 st.title("Sentiment analysis")
 
@@ -137,7 +137,7 @@ transformers_js_py
 
 <gradio-file name="app.py" entrypoint>
 import gradio as gr
-from transformers_js import import_transformers_js
+from transformers_js_py import import_transformers_js
 
 transformers = await import_transformers_js()
 pipeline = transformers.pipeline
@@ -169,7 +169,7 @@ For more details about Gradio-lite, please read [Gradio-Lite: Serverless Gradio 
 
 ```python
 from shiny import App, render, ui
-from transformers_js import import_transformers_js
+from transformers_js_py import import_transformers_js
 
 app_ui = ui.page_fluid(
     ui.input_text("text", "Text input", placeholder="Enter text"),
@@ -218,7 +218,7 @@ app = App(app_ui, server, debug=True)
     </py-config>
     <py-script>
         import asyncio
-        from transformers_js import import_transformers_js
+        from transformers_js_py import import_transformers_js
 
         text_input = Element("text-input")
 
@@ -252,7 +252,7 @@ With [HoloViz Panel](https://panel.holoviz.org) you develop your app on your lap
 Install the requirements
 
 ```bash
-pip install panel transformers_js_py 
+pip install panel transformers_js_py
 ```
 
 Create the **app.py** file in your favorite editor or IDE.
@@ -264,7 +264,7 @@ pn.extension(sizing_mode="stretch_width", design="material")
 
 @pn.cache
 async def _get_pipeline(model="sentiment-analysis"):
-    from transformers_js import import_transformers_js
+    from transformers_js_py import import_transformers_js
     transformers = await import_transformers_js()
     return await transformers.pipeline(model)
 
@@ -315,7 +315,7 @@ pn.extension(design="material")
 
 @pn.cache
 async def _get_pipeline(model):
-    from transformers_js import import_transformers_js
+    from transformers_js_py import import_transformers_js
     transformers = await import_transformers_js()
     return await transformers.pipeline(model)
 
