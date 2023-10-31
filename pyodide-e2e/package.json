@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "run-p dev:*",
     "dev:front": "vite",
-    "dev:python": "chokidar \"../transformers_js/**/*.py\" --initial -c \"cd .. && poetry build\"",
+    "dev:python": "chokidar \"../transformers_js_py/**/*.py\" \"../transformers_js/**/*.py\" --initial -c \"cd .. && poetry build\"",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest"
