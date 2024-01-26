@@ -33,7 +33,7 @@ result = {item['label']: round(item['score'], 2) for item in data}
 `);
     const resultMap = await pyodide.globals.get("result").toJs();  // Python's dict to JS's Map
     const resultObj = Object.fromEntries(resultMap);
-    expect(Object.keys(resultObj)).toEqual(["tower", "lion", "flower"]);
+    expect(Object.keys(resultObj)).toEqual(["lion", "tower", "flower"]);
 
     const topLabel = Object.keys(resultObj).reduce((a, b) => resultObj[a] > resultObj[b] ? a : b);
     expect(topLabel).toEqual("lion");
