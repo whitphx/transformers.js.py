@@ -3,11 +3,10 @@
 [![Test, Build, and Publish](https://github.com/whitphx/transformers.js.py/actions/workflows/main.yml/badge.svg)](https://github.com/whitphx/transformers.js.py/actions/workflows/main.yml)
 [![PyPI](https://img.shields.io/pypi/v/transformers-js-py)](https://pypi.org/project/transformers-js-py/)
 
-**Use [Transformers.js](https://huggingface.co/docs/transformers.js/index) on [Pyodide](https://pyodide.org/en/stable/) and Pyodide-based frameworks such as [JupyterLite](https://jupyterlite.readthedocs.io/en/latest/), [stlite (Streamlit)](https://github.com/whitphx/stlite), [Shinylive (Shiny for Python)](https://shiny.posit.co/py/docs/shinylive.html), [PyScript](https://pyscript.net/), and so on.**
+**Use [Transformers.js](https://huggingface.co/docs/transformers.js/index) on [Pyodide](https://pyodide.org/en/stable/) and Pyodide-based frameworks such as [JupyterLite](https://jupyterlite.readthedocs.io/en/latest/), [stlite (Streamlit)](https://github.com/whitphx/stlite), [Shinylive (Shiny for Python)](https://shiny.posit.co/py/docs/shinylive.html), [PyScript](https://pyscript.net/), [HoloViz Panel](https://panel.holoviz.org), and so on.**
 
-The original [Transformers](https://huggingface.co/docs/transformers/index) can't be used on a browser environment. [Transformers.js](https://huggingface.co/docs/transformers.js/index) is a JavaScript version of Transformers installable on browsers, but we can't use it from Pyodide.
-This package is a thin wrapper of Transformers.js to proxy its API to Pyodide.
-
+The original [Transformers](https://huggingface.co/docs/transformers/index) can't be used in a browser environment. [Transformers.js](https://huggingface.co/docs/transformers.js/index) is a JavaScript version of Transformers that can be installed on browsers, but we can't use it from Pyodide.
+This package is **a thin wrapper of Transformers.js to proxy its API to Pyodide**.
 
 ## API
 
@@ -52,6 +51,23 @@ out = await pipe('I love transformers!')
 </table>
 
 See the [Transformers.js document](https://github.com/xenova/transformers.js/) for available features.
+
+### Special Case: `as_url()`
+Certain methods of Transformers.js accept a URL as an input. However, when using Transformers.js.py on Pyodide, there may be instances where we want to pass a local file path from the virtual file system, rather than a URL. In such scenarios, the `as_url()` function can be used to convert a local file path into a URL.
+
+```python
+# Example
+from transformers_js import import_transformers_js, as_url
+
+transformers = await import_transformers_js()
+pipeline = transformers.pipeline
+pipe = await pipeline('image-classification')
+
+local_image_path = "/path/to/image.jpg"
+
+input_url = as_url(local_image_path)  # Converts a local file path into a URL that can be passed to `pipe()`
+result = await pipe(input_url)
+```
 
 ## Examples
 
