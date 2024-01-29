@@ -5,7 +5,7 @@ import wheelUrl from "transformers-js-py.whl";  // This is the alias from vite.c
 
 export const IS_NODE = typeof window === 'undefined';
 
-export async function setupPyodideForTest(): Promise<PyodideInterface> {
+export async function setupPyodideForTest(requirements: string[] = []): Promise<PyodideInterface> {
   const pyodide = await loadPyodide({
     indexURL: IS_NODE
       ? "node_modules/pyodide"  // pnpm puts pyodide at this path
@@ -24,6 +24,8 @@ export async function setupPyodideForTest(): Promise<PyodideInterface> {
   } else {
     await micropip.install(wheelUrl);
   }
+
+  await micropip.install(requirements);
 
   await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js

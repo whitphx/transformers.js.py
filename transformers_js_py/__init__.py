@@ -7,6 +7,16 @@ import pyodide.webloop
 
 from .url import as_url
 
+try:
+    import numpy as np
+except ImportError:
+    np = None
+
+try:
+    import PIL.Image as PILImage
+except ImportError:
+    PILImage = None
+
 
 class TjsModuleProxy:
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
@@ -17,7 +27,7 @@ class TjsModuleProxy:
     def __getattr__(self, name: str) -> Any:
         res = getattr(self.js_obj, name)
         if isinstance(res, pyodide.ffi.JsProxy):
-            return TjsProxy(res)
+            return proxy_tjs_object(res)
         return res
 
     def __repr__(self) -> str:
@@ -29,10 +39,10 @@ class TjsProxy:
         self._js_obj = js_obj
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
-        if hasattr(self._js_obj, "_call"):
-            args = pyodide.ffi.to_js(args)
-            kwds = pyodide.ffi.to_js(kwds)
+        args = pyodide.ffi.to_js(args)
+        kwds = pyodide.ffi.to_js(kwds)
 
+        if hasattr(self._js_obj, "_call"):
             # Transformers.js uses a custom _call() method
             # to make the JS classes callable.
             # https://github.com/xenova/transformers.js/blob/2.4.1/src/utils/core.js#L45-L77
@@ -60,11 +70,57 @@ class TjsProxy:
             setattr(self._js_obj, __name, __value)
 
 
+class TjsRawImageProxy(TjsProxy):
+    def to_numpy(self):
+        if np is None:
+            raise RuntimeError("numpy is not available")
+
+        data = self._js_obj.data  # Uint8ClampedArray|Uint8Array
+        width = self._js_obj.width
+        height = self._js_obj.height
+        channels = self._js_obj.channels
+        return np.asarray(data.to_py()).reshape((height, width, channels))
+
+    def to_pil(self):
+        if PILImage is None:
+            raise RuntimeError("PIL is not available")
+
+        numpy_img = self.to_numpy()
+        if numpy_img.shape[2] == 1:
+            # Gray scale image
+            numpy_img = numpy_img[:, :, 0]
+        return PILImage.fromarray(numpy_img)
+
+    def save(self, path: str):
+        self.to_pil().save(path)
+
+
+def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy):
+    """A factory function that wraps a JsProxy object wrapping a Transformers.js object
+    into a Python object of type TjsProxy or is subclass in the case of a special object
+    such as RawImage.
+    """
+    if js_obj.constructor == js._transformers.RawImage:
+        return TjsRawImageProxy(js_obj)
+    return TjsProxy(js_obj)
+
+
+def to_py_default_converter(value: pyodide.ffi.JsProxy, _ignored1, _ignored2):
+    return proxy_tjs_object(value)
+
+
 def wrap_or_unwrap_proxy_object(obj):
     if isinstance(obj, pyodide.ffi.JsProxy):
         if obj.typeof == "object":
-            return obj.to_py()
-        return TjsProxy(obj)
+            py_obj = obj.to_py(default_converter=to_py_default_converter)
+            if isinstance(py_obj, pyodide.ffi.JsProxy):
+                # Pyodide tries to convert the JS object to a Python object
+                # as best as possible, but it doesn't always work
+                # and we need to wrap it again.
+                return proxy_tjs_object(obj)
+            return py_obj
+
+        return proxy_tjs_object(obj)
     elif isinstance(obj, pyodide.webloop.PyodideFuture):
         return obj.then(wrap_or_unwrap_proxy_object)
     return obj
