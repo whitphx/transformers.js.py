@@ -1,5 +1,5 @@
 import re
-from typing import Any
+from typing import Any, Union
 
 import js
 import pyodide.code
@@ -74,10 +74,15 @@ class TjsProxy:
         self._js_obj[key] = value
 
     def __setattr__(self, __name: str, __value: Any) -> None:
-        if __name == "_js_obj":
-            super().__setattr__("_js_obj", __value)
+        if __name == "_js_obj" or __name == "_is_class":
+            super().__setattr__(__name, __value)
         else:
             setattr(self._js_obj, __name, __value)
+
+
+class TjsRawImageClassProxy(TjsProxy):
+    def read(self, input: Union["TjsRawImageProxy", str]):
+        return wrap_or_unwrap_proxy_object(self._js_obj.read(as_url(input)))
 
 
 class TjsRawImageProxy(TjsProxy):
@@ -110,6 +115,8 @@ def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy):
     into a Python object of type TjsProxy or is subclass in the case of a special object
     such as RawImage.
     """
+    if js_obj == js._transformers.RawImage:
+        return TjsRawImageClassProxy(js_obj)
     if js_obj.constructor == js._transformers.RawImage:
         return TjsRawImageProxy(js_obj)
     return TjsProxy(js_obj)

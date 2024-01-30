@@ -23,7 +23,7 @@ raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/trans
     expect(rawImage).toHaveProperty("channels", 4);
   });
 
-  it.skip("can be initialized from a local file via .read()", async () => {
+  it("can be initialized from a local file via .read()", async () => {
     await fetch("https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/bread_small.png")
       .then((response) => response.blob())
       .then((blob) => blob.arrayBuffer())
@@ -36,6 +36,7 @@ raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/trans
     await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js
 transformers = await import_transformers_js()
+
 RawImage = transformers.RawImage
 raw_image = await RawImage.read("/tmp/bread_small.png")
     `)
