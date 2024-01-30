@@ -123,19 +123,17 @@ def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy):
 
 
 def to_py_default_converter(value: pyodide.ffi.JsProxy, _ignored1, _ignored2):
+    # Pyodide tries to convert the JS object to a Python object
+    # as best as possible, but it doesn't always work.
+    # In such a case, this custom converter is called
+    # and it wraps the JS object into a TjsProxy object.
     return proxy_tjs_object(value)
 
 
 def wrap_or_unwrap_proxy_object(obj):
     if isinstance(obj, pyodide.ffi.JsProxy):
         if obj.typeof == "object":
-            py_obj = obj.to_py(default_converter=to_py_default_converter)
-            if isinstance(py_obj, pyodide.ffi.JsProxy):
-                # Pyodide tries to convert the JS object to a Python object
-                # as best as possible, but it doesn't always work
-                # and we need to wrap it again.
-                return proxy_tjs_object(obj)
-            return py_obj
+            return obj.to_py(default_converter=to_py_default_converter)
 
         return proxy_tjs_object(obj)
     elif isinstance(obj, pyodide.webloop.PyodideFuture):
