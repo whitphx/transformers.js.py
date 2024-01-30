@@ -10,7 +10,7 @@ suite("transformers.pipeline", () => {
   });
 
   test("zero-shot-image-classification with a local file wrapped by as_url()", async () => {
-    await fetch("https://huggingface.co/spaces/gradio/image_mod/resolve/main/images/lion.jpg")
+    await fetch("https://huggingface.co/spaces/gradio/image_mod/resolve/e07924a/images/lion.jpg")
       .then((response) => response.blob())
       .then((blob) => blob.arrayBuffer())
       .then((arrayBuffer) => {
@@ -40,7 +40,7 @@ result = {item['label']: round(item['score'], 2) for item in data}
   });
 
   test("depth-estimation", async () => {
-    await fetch("https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/bread_small.png")
+    await fetch("https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/db8bd36/bread_small.png")
       .then((response) => response.blob())
       .then((blob) => blob.arrayBuffer())
       .then((arrayBuffer) => {

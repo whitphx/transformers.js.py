@@ -14,7 +14,7 @@ describe("RawImage", () => {
 from transformers_js_py import import_transformers_js
 transformers = await import_transformers_js()
 RawImage = transformers.RawImage
-raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/bread_small.png')
+raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/db8bd36/bread_small.png')
     `)
     const rawImage = await pyodide.globals.get("raw_image").toJs();
     expect(rawImage).toBeDefined();
@@ -24,7 +24,7 @@ raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/trans
   });
 
   it("can be initialized from a local file via .read()", async () => {
-    await fetch("https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/bread_small.png")
+    await fetch("https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/db8bd36/bread_small.png")
       .then((response) => response.blob())
       .then((blob) => blob.arrayBuffer())
       .then((arrayBuffer) => {
@@ -68,7 +68,7 @@ raw_image = RawImage(bytes([0] * 16*10*3), 16, 10, 3)
 from transformers_js_py import import_transformers_js
 transformers = await import_transformers_js()
 RawImage = transformers.RawImage
-raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/bread_small.png')
+raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/db8bd36/bread_small.png')
 
 numpy_array = raw_image.to_numpy()
 pil_image = raw_image.to_pil()
