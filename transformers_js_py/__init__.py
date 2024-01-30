@@ -1,3 +1,4 @@
+import re
 from typing import Any
 
 import js
@@ -16,6 +17,9 @@ try:
     import PIL.Image as PILImage
 except ImportError:
     PILImage = None
+
+
+rx_class_def_code = re.compile(r"^\s*class\s+([a-zA-Z0-9_]+)\s*{", re.MULTILINE)
 
 
 class TjsModuleProxy:
@@ -37,6 +41,9 @@ class TjsModuleProxy:
 class TjsProxy:
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
         self._js_obj = js_obj
+        self._is_class = self._js_obj.typeof == "function" and rx_class_def_code.match(
+            self._js_obj.toString()
+        )  # Ref: https://stackoverflow.com/a/30760236/13103190
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         args = pyodide.ffi.to_js(args)
@@ -48,7 +55,10 @@ class TjsProxy:
             # https://github.com/xenova/transformers.js/blob/2.4.1/src/utils/core.js#L45-L77
             res = self._js_obj._call(*args, **kwds)
         else:
-            res = self._js_obj(*args, **kwds)
+            if self._is_class:
+                res = self._js_obj.new(*args, **kwds)
+            else:
+                res = self._js_obj(*args, **kwds)
 
         return wrap_or_unwrap_proxy_object(res)
 
