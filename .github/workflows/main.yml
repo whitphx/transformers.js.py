@@ -115,7 +115,7 @@ jobs:
           run_install: |
             cwd: pyodide-e2e
 
-      - run: xvfb-run -a pnpm test
+      - run: pnpm test
         working-directory: pyodide-e2e
 
 
