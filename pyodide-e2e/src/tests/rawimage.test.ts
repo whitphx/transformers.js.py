@@ -148,7 +148,7 @@ from transformers_js_py import import_transformers_js
 transformers = await import_transformers_js()
 
 RawImage = transformers.RawImage
-raw_image = RawImage(bytes([0] * 16*10*3), 16, 10, ${sourceChannels})
+raw_image = RawImage(bytes([0] * 16*10*${sourceChannels}), 16, 10, ${sourceChannels})
 `)
         });
 
