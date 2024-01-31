@@ -79,4 +79,38 @@ output["depth"].save('/tmp/depth.png')
     const depthImage: Uint8Array = pyodide.FS.readFile("/tmp/depth.png", { encoding: "binary" });
     // TODO: How to assert the depth image? Image snapshot is not available in the browser env.
   })
+
+  test("depth-estimation with a RawImage input", async () => {
+    await pyodide.runPythonAsync(`
+from transformers_js_py import import_transformers_js, as_url
+
+transformers = await import_transformers_js()
+
+pipeline = transformers.pipeline
+RawImage = transformers.RawImage
+
+depth_estimator = await pipeline('depth-estimation', 'Xenova/depth-anything-small-hf');
+
+image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/db8bd36/bread_small.png')
+
+output = await depth_estimator(image)
+`);
+    const outputMap = await pyodide.globals.get("output").toJs()  // Python's dict to JS's Map
+    const output = Object.fromEntries(outputMap);
+
+    const depth = output.depth.toJs();
+    const predictedDepth = output.predicted_depth.toJs();
+
+    // API reference: https://huggingface.co/Xenova/depth-anything-small-hf
+    expect(depth.width).toBe(640)
+    expect(depth.height).toBe(424)
+    expect(depth.channels).toBe(1)
+    expect(predictedDepth).toBeDefined()
+
+    await pyodide.runPythonAsync(`
+output["depth"].save('/tmp/depth.png')
+`);
+    const depthImage: Uint8Array = pyodide.FS.readFile("/tmp/depth.png", { encoding: "binary" });
+    // TODO: How to assert the depth image? Image snapshot is not available in the browser env.
+  })
 });

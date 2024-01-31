@@ -46,6 +46,8 @@ class TjsProxy:
         )  # Ref: https://stackoverflow.com/a/30760236/13103190
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
+        args = [arg._js_obj if isinstance(arg, TjsProxy) else arg for arg in args]
+        kwds = {k: v._js_obj if isinstance(v, TjsProxy) else v for k, v in kwds.items()}
         args = pyodide.ffi.to_js(args)
         kwds = pyodide.ffi.to_js(kwds)
 
