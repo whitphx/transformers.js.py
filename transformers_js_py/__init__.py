@@ -1,12 +1,12 @@
 import re
-from typing import Any, Union
+from typing import Any, Awaitable, Union
 
 import js
 import pyodide.code
 import pyodide.ffi
 import pyodide.webloop
 
-from .url import as_url
+from .url import as_url, is_url
 
 try:
     import numpy as np
@@ -81,8 +81,16 @@ class TjsProxy:
 
 
 class TjsRawImageClassProxy(TjsProxy):
-    def read(self, input: Union["TjsRawImageProxy", str]):
-        return wrap_or_unwrap_proxy_object(self._js_obj.read(as_url(input)))
+    def read(
+        self, input: Union["TjsRawImageProxy", str]
+    ) -> Awaitable["TjsRawImageProxy"]:
+        if isinstance(input, TjsRawImageProxy):
+            res = self._js_obj.read(input._js_obj)
+        elif is_url(input):
+            res = self._js_obj.read(input)
+        else:
+            res = self._js_obj.read(as_url(input))
+        return wrap_or_unwrap_proxy_object(res)
 
 
 class TjsRawImageProxy(TjsProxy):

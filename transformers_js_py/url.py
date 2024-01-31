@@ -11,6 +11,16 @@ except ImportError:
     js_Blob = None
 
 
+def is_url(url: str) -> bool:
+    # Check if the URL is valid, covering all the possible schemes.
+    # https://url.spec.whatwg.org/
+    try:
+        js_URL.new(url)
+        return True
+    except Exception:
+        return False
+
+
 def as_url(data_or_file_path: Union[str, bytes]) -> str:
     """For example, `pipeline('zero-shot-image-classification')`
     requires a URL of the input image file in the browser environment.
