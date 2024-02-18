@@ -120,6 +120,18 @@ class TjsRawImageProxy(TjsProxy):
         self.to_pil().save(path)
 
 
+class TjsTensorProxy(TjsProxy):
+    def numpy(self):
+        if np is None:
+            raise RuntimeError("numpy is not available")
+
+        data = self._js_obj.data.to_py()
+        dims = self._js_obj.dims.to_py()
+        dtype = self._js_obj.type
+
+        return np.asarray(data, dtype=dtype).reshape(dims)
+
+
 def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy):
     """A factory function that wraps a JsProxy object wrapping a Transformers.js object
     into a Python object of type TjsProxy or is subclass in the case of a special object
@@ -129,6 +141,8 @@ def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy):
         return TjsRawImageClassProxy(js_obj)
     if js_obj.constructor == js._transformers.RawImage:
         return TjsRawImageProxy(js_obj)
+    if js_obj.constructor == js._transformers.Tensor:
+        return TjsTensorProxy(js_obj)
     return TjsProxy(js_obj)
 
 
