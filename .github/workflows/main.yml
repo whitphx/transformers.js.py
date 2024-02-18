@@ -65,14 +65,14 @@ jobs:
         run: poetry build
 
       - name: Upload the built files as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ ! startsWith(github.ref, 'refs/tags/v') }}
         with:
           path: dist
           name: transformers_js_py-${{ github.sha }}.tgz
 
       - name: Upload the built files as an artifact (when pushed with a version tag)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           path: dist
