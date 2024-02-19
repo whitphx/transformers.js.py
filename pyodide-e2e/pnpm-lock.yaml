@@ -2417,7 +2417,7 @@ packages:
   /onnx-proto@4.0.4:
     resolution: {integrity: sha512-aldMOB3HRoo6q/phyB6QRQxSt895HNNw82BNyZ2CMh4bjeKv7g/c+VpAFtJuEMVfYLMbRx61hbuqnKceLeDcDA==}
     dependencies:
-      protobufjs: 6.11.3
+      protobufjs: 6.11.4
     dev: true
 
   /onnxruntime-common@1.14.0:
@@ -2646,8 +2646,8 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: true
 
-  /protobufjs@6.11.3:
-    resolution: {integrity: sha512-xL96WDdCZYdU7Slin569tFX712BxsxslWwAfAhCYjQKGTq7dAU91Lomy6nLLhh/dyGhk/YH4TwTSRxTzhuHyZg==}
+  /protobufjs@6.11.4:
+    resolution: {integrity: sha512-5kQWPaJHi1WoCpjTGszzQ32PG2F4+wRY6BmAT4Vfw56Q2FZ4YZzK20xUYQH4YkfehY1e6QSICrJquM6xXZNcrw==}
     hasBin: true
     requiresBuild: true
     dependencies:
