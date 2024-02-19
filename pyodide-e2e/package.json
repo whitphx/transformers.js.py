@@ -12,7 +12,7 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@types/node": "^20.4.3",
+    "@types/node": "^20.11.19",
     "@vitest/browser": "^1.2.2",
     "@xenova/transformers": "^2.4.2",
     "chokidar-cli": "^3.0.0",
