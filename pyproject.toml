@@ -15,7 +15,7 @@ repository = "https://github.com/whitphx/transformers.js.py"
 python = "^3.10"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.7.0"
+black = ">=23.7,<25.0"
 flake8 = ">=6,<8"
 isort = "^5.12.0"
 mypy = "^1.4.1"
