@@ -24,8 +24,8 @@ devDependencies:
     specifier: ^0.23.4
     version: 0.23.4
   typescript:
-    specifier: ^5.0.2
-    version: 5.0.2
+    specifier: ^5.3.3
+    version: 5.3.3
   vite:
     specifier: ^5.0.12
     version: 5.0.12(@types/node@20.4.3)
@@ -34,7 +34,7 @@ devDependencies:
     version: 1.2.2(@types/node@20.4.3)(@vitest/browser@1.2.2)
   webdriverio:
     specifier: ^8.32.2
-    version: 8.32.2(typescript@5.0.2)
+    version: 8.32.2(typescript@5.3.3)
 
 packages:
 
@@ -322,7 +322,7 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: true
 
-  /@puppeteer/browsers@1.4.6(typescript@5.0.2):
+  /@puppeteer/browsers@1.4.6(typescript@5.3.3):
     resolution: {integrity: sha512-x4BEjr2SjOPowNeiguzjozQbsc6h437ovD/wu+JpaenxVLm3jkgzHY2xOslMTp50HoTvQreMjiexiGQw1sqZlQ==}
     engines: {node: '>=16.3.0'}
     hasBin: true
@@ -337,7 +337,7 @@ packages:
       progress: 2.0.3
       proxy-agent: 6.3.0
       tar-fs: 3.0.4
-      typescript: 5.0.2
+      typescript: 5.3.3
       unbzip2-stream: 1.4.3
       yargs: 17.7.1
     transitivePeerDependencies:
@@ -541,7 +541,7 @@ packages:
       magic-string: 0.30.5
       sirv: 2.0.4
       vitest: 1.2.2(@types/node@20.4.3)(@vitest/browser@1.2.2)
-      webdriverio: 8.32.2(typescript@5.0.2)
+      webdriverio: 8.32.2(typescript@5.3.3)
     dev: true
 
   /@vitest/expect@1.2.2:
@@ -2709,7 +2709,7 @@ packages:
       once: 1.4.0
     dev: true
 
-  /puppeteer-core@20.9.0(typescript@5.0.2):
+  /puppeteer-core@20.9.0(typescript@5.3.3):
     resolution: {integrity: sha512-H9fYZQzMTRrkboEfPmf7m3CLDN6JvbxXA3qTtS+dFt27tR+CsFHzPsT6pzp6lYL6bJbAPaR0HaPO6uSi+F94Pg==}
     engines: {node: '>=16.3.0'}
     peerDependencies:
@@ -2718,12 +2718,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@puppeteer/browsers': 1.4.6(typescript@5.0.2)
+      '@puppeteer/browsers': 1.4.6(typescript@5.3.3)
       chromium-bidi: 0.4.16(devtools-protocol@0.0.1147663)
       cross-fetch: 4.0.0
       debug: 4.3.4
       devtools-protocol: 0.0.1147663
-      typescript: 5.0.2
+      typescript: 5.3.3
       ws: 8.13.0
     transitivePeerDependencies:
       - bufferutil
@@ -3386,9 +3386,9 @@ packages:
       is-typed-array: 1.1.12
     dev: true
 
-  /typescript@5.0.2:
-    resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
-    engines: {node: '>=12.20'}
+  /typescript@5.3.3:
+    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
+    engines: {node: '>=14.17'}
     hasBin: true
     dev: true
 
@@ -3601,7 +3601,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /webdriverio@8.32.2(typescript@5.0.2):
+  /webdriverio@8.32.2(typescript@5.3.3):
     resolution: {integrity: sha512-Z0Wc/dHFfWGWJZpaQ8u910/LG0E9EIVTO7J5yjqWx2XtXz2LzQMxYwNRnvNLhY/1tI4y/cZxI6kFMWr8wD2TtA==}
     engines: {node: ^16.13 || >=18}
     peerDependencies:
@@ -3628,7 +3628,7 @@ packages:
       lodash.clonedeep: 4.5.0
       lodash.zip: 4.2.0
       minimatch: 9.0.3
-      puppeteer-core: 20.9.0(typescript@5.0.2)
+      puppeteer-core: 20.9.0(typescript@5.3.3)
       query-selector-shadow-dom: 1.0.1
       resq: 1.11.0
       rgb2hex: 0.2.5
