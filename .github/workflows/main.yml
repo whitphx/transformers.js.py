@@ -61,6 +61,9 @@ jobs:
           poetry run isort . --check --resolve-all-configs
           poetry run flake8
 
+      - name: Type check with mypy
+        run: poetry run mypy .
+
       - name: Package
         run: poetry build
 

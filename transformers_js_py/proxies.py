@@ -1,7 +1,6 @@
 import re
 from typing import Any, Awaitable, Union
 
-import js
 import pyodide.code
 import pyodide.ffi
 import pyodide.webloop
@@ -11,12 +10,15 @@ from .url import as_url, is_url
 try:
     import numpy as np
 except ImportError:
-    np = None
+    np = None  # type: ignore
 
 try:
     import PIL.Image as PILImage
 except ImportError:
-    PILImage = None
+    PILImage = None  # type: ignore
+
+
+_TRANSFORMERS_JS = None
 
 
 rx_class_def_code = re.compile(r"^\s*class\s+([a-zA-Z0-9_]+)\s*{", re.MULTILINE)
@@ -46,7 +48,7 @@ class TjsProxy:
         )  # Ref: https://stackoverflow.com/a/30760236/13103190
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
-        args = [arg._js_obj if isinstance(arg, TjsProxy) else arg for arg in args]
+        args = tuple(arg._js_obj if isinstance(arg, TjsProxy) else arg for arg in args)
         kwds = {k: v._js_obj if isinstance(v, TjsProxy) else v for k, v in kwds.items()}
         args = pyodide.ffi.to_js(args)
         kwds = pyodide.ffi.to_js(kwds)
@@ -137,11 +139,16 @@ def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy):
     into a Python object of type TjsProxy or is subclass in the case of a special object
     such as RawImage.
     """
-    if js_obj == js._transformers.RawImage:
+    if _TRANSFORMERS_JS is None:
+        raise RuntimeError(
+            "transformers_js_py.import_transformers_js() must be called first"
+        )
+
+    if js_obj == _TRANSFORMERS_JS.RawImage:
         return TjsRawImageClassProxy(js_obj)
-    if js_obj.constructor == js._transformers.RawImage:
+    if js_obj.constructor == _TRANSFORMERS_JS.RawImage:
         return TjsRawImageProxy(js_obj)
-    if js_obj.constructor == js._transformers.Tensor:
+    if js_obj.constructor == _TRANSFORMERS_JS.Tensor:
         return TjsTensorProxy(js_obj)
     return TjsProxy(js_obj)
 
@@ -166,9 +173,9 @@ def wrap_or_unwrap_proxy_object(obj):
 
 
 async def import_transformers_js(version: str = "latest"):
-    pyodide.code.run_js(
+    loadTransformersJsFn = pyodide.code.run_js(
         """
-    async function loadTransformersJs(version) {
+    async (version) => {
         const isBrowserMainThread = typeof window !== 'undefined';
         const isWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
         const isBrowser = isBrowserMainThread || isWorker;
@@ -176,14 +183,12 @@ async def import_transformers_js(version: str = "latest"):
 
         transformers.env.allowLocalModels = false;
 
-        globalThis._transformers = {  // Convert a module to an object.
+        return {  // Convert a module to an object.
             ...transformers,
         };
     }
     """  # noqa: E501
     )
-    loadTransformersJsFn = js.loadTransformersJs
-    await loadTransformersJsFn(version)
-
-    transformers = js._transformers
-    return TjsModuleProxy(transformers)
+    global _TRANSFORMERS_JS
+    _TRANSFORMERS_JS = await loadTransformersJsFn(version)
+    return TjsModuleProxy(_TRANSFORMERS_JS)
