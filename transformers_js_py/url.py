@@ -12,8 +12,11 @@ except ImportError:
 
 try:
     import PIL.Image as PILImage
+
+    PILImageImage = PILImage.Image
 except ImportError:
     PILImage = None  # type: ignore
+    PILImageImage = None  # type: ignore
 
 
 def is_url(url: str) -> bool:
@@ -26,7 +29,7 @@ def is_url(url: str) -> bool:
         return False
 
 
-def as_url(data_or_file_path: Union[str, bytes, PILImage.Image]) -> str:
+def as_url(data_or_file_path: Union[str, bytes, PILImageImage]) -> str:
     """For example, `pipeline('zero-shot-image-classification')`
     requires a URL of the input image file in the browser environment.
     This function converts an input data or a input file path on Pyodide's virtual FS
@@ -45,7 +48,7 @@ def as_url(data_or_file_path: Union[str, bytes, PILImage.Image]) -> str:
             data = f.read()
     elif isinstance(data_or_file_path, bytes):
         data = data_or_file_path
-    elif isinstance(data_or_file_path, PILImage.Image):
+    elif PILImage and isinstance(data_or_file_path, PILImage.Image):
         import io
 
         with io.BytesIO() as f:
