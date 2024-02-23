@@ -40,6 +40,14 @@ class TjsModuleProxy:
         return "TjsModuleProxy({})".format(", ".join(self.js_obj.object_keys()))
 
 
+def convert_arg(arg: Any) -> Any:
+    if isinstance(arg, TjsProxy):
+        return arg._js_obj
+    if PILImage and isinstance(arg, PILImage.Image):
+        return as_url(arg)
+    return arg
+
+
 class TjsProxy:
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
         self._js_obj = js_obj
@@ -48,8 +56,8 @@ class TjsProxy:
         )  # Ref: https://stackoverflow.com/a/30760236/13103190
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
-        args = tuple(arg._js_obj if isinstance(arg, TjsProxy) else arg for arg in args)
-        kwds = {k: v._js_obj if isinstance(v, TjsProxy) else v for k, v in kwds.items()}
+        args = tuple(convert_arg(arg) for arg in args)
+        kwds = {k: convert_arg(v) for k, v in kwds.items()}
         args = pyodide.ffi.to_js(args)
         kwds = pyodide.ffi.to_js(kwds)
 
