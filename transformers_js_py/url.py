@@ -10,6 +10,11 @@ except ImportError:
     warnings.warn("Blob is not available in this environment")
     js_Blob = None
 
+try:
+    import PIL.Image as PILImage
+except ImportError:
+    PILImage = None  # type: ignore
+
 
 def is_url(url: str) -> bool:
     # Check if the URL is valid, covering all the possible schemes.
@@ -21,11 +26,11 @@ def is_url(url: str) -> bool:
         return False
 
 
-def as_url(data_or_file_path: Union[str, bytes]) -> str:
+def as_url(data_or_file_path: Union[str, bytes, PILImage.Image]) -> str:
     """For example, `pipeline('zero-shot-image-classification')`
     requires a URL of the input image file in the browser environment.
-    This function converts a file path on Pyodide's virtual file system
-    to a URL that can be used as the input of such pipelines.
+    This function converts an input data or a input file path on Pyodide's virtual FS
+    into a URL that can be used as the input of such pipelines.
 
     Internally, Transformers.js reads the input with this code:
     https://github.com/xenova/transformers.js/blob/2.6.2/src/utils/image.js#L112-L113
@@ -40,6 +45,12 @@ def as_url(data_or_file_path: Union[str, bytes]) -> str:
             data = f.read()
     elif isinstance(data_or_file_path, bytes):
         data = data_or_file_path
+    elif isinstance(data_or_file_path, PILImage.Image):
+        import io
+
+        with io.BytesIO() as f:
+            data_or_file_path.save(f, format="PNG")
+            data = f.getvalue()
     else:
         raise TypeError(
             "data_or_file_path must be str or bytes, "
