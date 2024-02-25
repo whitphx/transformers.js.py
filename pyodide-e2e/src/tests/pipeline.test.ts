@@ -39,6 +39,37 @@ result = {item['label']: round(item['score'], 2) for item in data}
     expect(topLabel).toEqual("lion");
   });
 
+  test("zero-shot-image-classification with a PIL image which is automatically converted to be an input URL", async () => {
+    await fetch("https://huggingface.co/spaces/gradio/image_mod/resolve/e07924a/images/lion.jpg")
+      .then((response) => response.blob())
+      .then((blob) => blob.arrayBuffer())
+      .then((arrayBuffer) => {
+        const fileData = new Uint8Array(arrayBuffer);
+        const filePath = "/tmp/cheetah.jpg";
+        pyodide.FS.writeFile(filePath, fileData);
+      });
+
+    await pyodide.runPythonAsync(`
+from transformers_js_py import import_transformers_js, as_url
+import PIL.Image
+
+transformers = await import_transformers_js()
+pipeline = transformers.pipeline
+pipe = await pipeline('zero-shot-image-classification')
+
+image = PIL.Image.open("/tmp/cheetah.jpg")
+
+data = await pipe(image, ["tower", "lion", "flower"])
+result = {item['label']: round(item['score'], 2) for item in data}
+`);
+    const resultMap = await pyodide.globals.get("result").toJs();  // Python's dict to JS's Map
+    const resultObj = Object.fromEntries(resultMap);
+    expect(Object.keys(resultObj)).toEqual(["lion", "tower", "flower"]);
+
+    const topLabel = Object.keys(resultObj).reduce((a, b) => resultObj[a] > resultObj[b] ? a : b);
+    expect(topLabel).toEqual("lion");
+  });
+
   test("depth-estimation", async () => {
     await fetch("https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/db8bd36/bread_small.png")
       .then((response) => response.blob())
