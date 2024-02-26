@@ -1,6 +1,6 @@
 import type { PyodideInterface } from "pyodide";
 import { beforeEach, suite, test, expect } from "vitest";
-import { setupPyodideForTest } from "./utils";
+import { setupPyodideForTest, downloadFile } from "./utils";
 
 suite("transformers.pipeline", () => {
   let pyodide: PyodideInterface;
@@ -10,14 +10,7 @@ suite("transformers.pipeline", () => {
   });
 
   test("zero-shot-image-classification with a local file wrapped by as_url()", async () => {
-    await fetch("https://huggingface.co/spaces/gradio/image_mod/resolve/e07924a/images/lion.jpg")
-      .then((response) => response.blob())
-      .then((blob) => blob.arrayBuffer())
-      .then((arrayBuffer) => {
-        const fileData = new Uint8Array(arrayBuffer);
-        const filePath = "/tmp/cheetah.jpg";
-        pyodide.FS.writeFile(filePath, fileData);
-      });
+    await downloadFile(pyodide, "https://huggingface.co/spaces/gradio/image_mod/resolve/e07924a/images/lion.jpg", "/tmp/cheetah.jpg");
 
     await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js, as_url
@@ -40,14 +33,7 @@ result = {item['label']: round(item['score'], 2) for item in data}
   });
 
   test("zero-shot-image-classification with a PIL image which is automatically converted to be an input URL", async () => {
-    await fetch("https://huggingface.co/spaces/gradio/image_mod/resolve/e07924a/images/lion.jpg")
-      .then((response) => response.blob())
-      .then((blob) => blob.arrayBuffer())
-      .then((arrayBuffer) => {
-        const fileData = new Uint8Array(arrayBuffer);
-        const filePath = "/tmp/cheetah.jpg";
-        pyodide.FS.writeFile(filePath, fileData);
-      });
+    await downloadFile(pyodide, "https://huggingface.co/spaces/gradio/image_mod/resolve/e07924a/images/lion.jpg", "/tmp/cheetah.jpg");
 
     await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js, as_url
@@ -71,14 +57,7 @@ result = {item['label']: round(item['score'], 2) for item in data}
   });
 
   test("depth-estimation", async () => {
-    await fetch("https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/db8bd36/bread_small.png")
-      .then((response) => response.blob())
-      .then((blob) => blob.arrayBuffer())
-      .then((arrayBuffer) => {
-        const fileData = new Uint8Array(arrayBuffer);
-        const filePath = "/tmp/bread_small.png";
-        pyodide.FS.writeFile(filePath, fileData);
-      });
+    await downloadFile(pyodide, "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/db8bd36/bread_small.png", "/tmp/bread_small.png");
 
     await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js, as_url
