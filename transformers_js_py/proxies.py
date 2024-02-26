@@ -21,9 +21,6 @@ except ImportError:
 _TRANSFORMERS_JS = None
 
 
-_TRANSFORMERS_JS = None
-
-
 rx_class_def_code = re.compile(r"^\s*class\s+([a-zA-Z0-9_]+)\s*{", re.MULTILINE)
 
 
