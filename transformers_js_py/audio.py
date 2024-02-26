@@ -19,8 +19,14 @@ def read_audio(filename, sampling_rate: int) -> "np.ndarray":
 
     original_sample_rate, samples = scipy.io.wavfile.read(filename, mmap=False)
 
+    # Ensure samples are float32
+    # Ref: https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.wavfile.read.html  # noqa: E501
     if samples.dtype == np.int16:
         samples = samples.astype(np.float32) / 32768.0
+    elif samples.dtype == np.int32:
+        samples = samples.astype(np.float32) / 2147483648.0
+    elif samples.dtype == np.uint8:
+        samples = (samples.astype(np.float32) - 128.0) / 128.0
 
     if original_sample_rate != sampling_rate:
         samples = scipy.signal.resample(
