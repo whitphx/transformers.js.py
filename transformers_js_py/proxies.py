@@ -1,6 +1,7 @@
 import re
 from typing import Any, Awaitable, Union
 
+import js
 import pyodide.code
 import pyodide.ffi
 import pyodide.webloop
@@ -56,10 +57,14 @@ class TjsProxy:
         )  # Ref: https://stackoverflow.com/a/30760236/13103190
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
-        args = tuple(convert_arg(arg) for arg in args)
-        kwds = {k: convert_arg(v) for k, v in kwds.items()}
-        args = pyodide.ffi.to_js(args)
-        kwds = pyodide.ffi.to_js(kwds)
+        args = tuple(
+            pyodide.ffi.to_js(convert_arg(arg), dict_converter=js.Object.fromEntries)
+            for arg in args
+        )
+        kwds = {
+            k: pyodide.ffi.to_js(convert_arg(v), dict_converter=js.Object.fromEntries)
+            for k, v in kwds.items()
+        }
 
         if hasattr(self._js_obj, "_call"):
             # Transformers.js uses a custom _call() method
@@ -83,13 +88,19 @@ class TjsProxy:
         return wrap_or_unwrap_proxy_object(res)
 
     def __setitem__(self, key: Any, value: Any) -> None:
+        value = pyodide.ffi.to_js(
+            convert_arg(value), dict_converter=js.Object.fromEntries
+        )
         self._js_obj[key] = value
 
-    def __setattr__(self, __name: str, __value: Any) -> None:
-        if __name == "_js_obj" or __name == "_is_class":
-            super().__setattr__(__name, __value)
+    def __setattr__(self, name: str, value: Any) -> None:
+        if name == "_js_obj" or name == "_is_class":
+            super().__setattr__(name, value)
         else:
-            setattr(self._js_obj, __name, __value)
+            value = pyodide.ffi.to_js(
+                convert_arg(value), dict_converter=js.Object.fromEntries
+            )
+            setattr(self._js_obj, name, value)
 
 
 class TjsRawImageClassProxy(TjsProxy):
