@@ -34,3 +34,9 @@ transformers = await import_transformers_js()
 
   return pyodide;
 }
+
+export async function downloadFile(pyodide: PyodideInterface, url: string, path: string) {
+  const response = await fetch(url);
+  const fileData = await response.arrayBuffer();
+  pyodide.FS.writeFile(path, new Uint8Array(fileData));
+}
