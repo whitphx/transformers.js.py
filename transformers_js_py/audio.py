@@ -4,15 +4,18 @@ except ImportError:
     np = None  # type: ignore
 
 
-def read_audio(filename, sampling_rate: int) -> np.ndarray:
+def read_audio(filename, sampling_rate: int) -> "np.ndarray":
     # Refs:
     # * https://github.com/xenova/transformers.js/blob/2.15.1/src/utils/audio.js#L42-L77
     # * https://huggingface.co/docs/transformers.js/guides/node-audio-processing
 
     try:
+        import numpy as np
         import scipy  # type: ignore
     except ImportError:
-        raise ImportError("The `scipy` library is required to read audio files.")
+        raise ImportError(
+            "You need to have `numpy` and `scipy` installed to use this feature."
+        )
 
     original_sample_rate, samples = scipy.io.wavfile.read(filename, mmap=False)
 
