@@ -41,12 +41,25 @@ class TjsModuleProxy:
         return "TjsModuleProxy({})".format(", ".join(self.js_obj.object_keys()))
 
 
-def convert_arg(arg: Any) -> Any:
-    if isinstance(arg, TjsProxy):
-        return arg._js_obj
-    if PILImage and isinstance(arg, PILImage.Image):
-        return as_url(arg)
-    return arg
+def convert_obj(obj: Any) -> Any:
+    # Converts a Python object to be suitable for passing to Transformers.js API
+    # through pyodide.ffi.to_js().
+    if isinstance(obj, TjsProxy):
+        return obj._js_obj
+    if PILImage and isinstance(obj, PILImage.Image):
+        return as_url(obj)
+    return obj
+
+
+def to_js(obj: Any) -> Any:
+    # A wrapper around pyodide.ffi.to_js()
+    # that should be used in all the TjsProxy methods.
+    # It applies a custom object converter for Transformers.js
+    # with a preset dict_converter which translates Python dict to JS object.
+    return pyodide.ffi.to_js(
+        convert_obj(obj),
+        dict_converter=js.Object.fromEntries,  # Ref: https://pyodide.org/en/stable/usage/api/python-api/ffi.html#pyodide.ffi.to_js  # noqa: E501
+    )
 
 
 class TjsProxy:
@@ -57,14 +70,8 @@ class TjsProxy:
         )  # Ref: https://stackoverflow.com/a/30760236/13103190
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
-        args = tuple(
-            pyodide.ffi.to_js(convert_arg(arg), dict_converter=js.Object.fromEntries)
-            for arg in args
-        )
-        kwds = {
-            k: pyodide.ffi.to_js(convert_arg(v), dict_converter=js.Object.fromEntries)
-            for k, v in kwds.items()
-        }
+        args = tuple(to_js(arg) for arg in args)
+        kwds = {k: to_js(v) for k, v in kwds.items()}
 
         if hasattr(self._js_obj, "_call"):
             # Transformers.js uses a custom _call() method
@@ -88,18 +95,14 @@ class TjsProxy:
         return wrap_or_unwrap_proxy_object(res)
 
     def __setitem__(self, key: Any, value: Any) -> None:
-        value = pyodide.ffi.to_js(
-            convert_arg(value), dict_converter=js.Object.fromEntries
-        )
+        value = to_js(value)
         self._js_obj[key] = value
 
     def __setattr__(self, name: str, value: Any) -> None:
         if name == "_js_obj" or name == "_is_class":
             super().__setattr__(name, value)
         else:
-            value = pyodide.ffi.to_js(
-                convert_arg(value), dict_converter=js.Object.fromEntries
-            )
+            value = to_js(value)
             setattr(self._js_obj, name, value)
 
 
