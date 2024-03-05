@@ -21,6 +21,6 @@
     "typescript": "^5.3.3",
     "vite": "^5.1.5",
     "vitest": "^1.2.2",
-    "webdriverio": "^8.32.3"
+    "webdriverio": "^8.32.4"
   }
 }
