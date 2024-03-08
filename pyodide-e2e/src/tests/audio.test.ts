@@ -12,7 +12,11 @@ describe("read_audio() and ASR", () => {
   });
 
   it("can read an audio file from a local file", async () => {
-    await downloadFile(pyodide, "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav", "/tmp/jfk.wav")
+    await downloadFile(
+      pyodide,
+      "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav",
+      "/tmp/jfk.wav",
+    );
 
     await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js, read_audio
@@ -27,6 +31,8 @@ result = await pipe(audio)
 text = result["text"]
 `);
     const text = await pyodide.globals.get("text");
-    expect(text).toEqual(" And so my fellow Americans ask not what your country can do for you, ask what you can do for your country.");
+    expect(text).toEqual(
+      " And so my fellow Americans ask not what your country can do for you, ask what you can do for your country.",
+    );
   });
 });

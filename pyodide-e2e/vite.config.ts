@@ -1,18 +1,23 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 import path from "path";
-import { exec } from "child_process"
+import { exec } from "child_process";
 
-const getTransformersJsPyVersion = (): Promise<string> => new Promise((resolve, reject) => {
-  exec("poetry version -s", {
-    cwd: path.resolve(__dirname, ".."),
-  }, (err, stdout, stderr) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve(stdout.trim());
-    }
+const getTransformersJsPyVersion = (): Promise<string> =>
+  new Promise((resolve, reject) => {
+    exec(
+      "poetry version -s",
+      {
+        cwd: path.resolve(__dirname, ".."),
+      },
+      (err, stdout, stderr) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(stdout.trim());
+        }
+      },
+    );
   });
-})
 
 export default defineConfig(async () => {
   const transformersJsPyVersion = await getTransformersJsPyVersion();
@@ -21,8 +26,13 @@ export default defineConfig(async () => {
   return {
     resolve: {
       alias: {
-        "transformers-js-py.whl": path.resolve(__dirname, "..", "dist", `transformers_js_py-${transformersJsPyVersion}-py3-none-any.whl`),
-      }
+        "transformers-js-py.whl": path.resolve(
+          __dirname,
+          "..",
+          "dist",
+          `transformers_js_py-${transformersJsPyVersion}-py3-none-any.whl`,
+        ),
+      },
     },
     assetsInclude: ["**/*.whl"],
     test: {
@@ -30,9 +40,9 @@ export default defineConfig(async () => {
       hookTimeout: 60 * 1000,
       browser: {
         enabled: true,
-        name: 'chrome', // browser name is required
+        name: "chrome", // browser name is required
         headless: true,
-      }
+      },
     },
-  }
-})
+  };
+});

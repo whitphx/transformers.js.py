@@ -1,15 +1,17 @@
-import path from "path"
+import path from "path";
 import fsPromises from "fs/promises";
 import { loadPyodide, type PyodideInterface, version } from "pyodide";
-import wheelUrl from "transformers-js-py.whl";  // This is the alias from vite.config.ts
+import wheelUrl from "transformers-js-py.whl"; // This is the alias from vite.config.ts
 
-export const IS_NODE = typeof window === 'undefined';
+export const IS_NODE = typeof window === "undefined";
 
-export async function setupPyodideForTest(requirements: string[] = []): Promise<PyodideInterface> {
+export async function setupPyodideForTest(
+  requirements: string[] = [],
+): Promise<PyodideInterface> {
   const pyodide = await loadPyodide({
     indexURL: IS_NODE
-      ? "node_modules/pyodide"  // pnpm puts pyodide at this path
-      : `https://cdn.jsdelivr.net/pyodide/v${version}/full/`  // In the CI env, it looks like only the remove URL works in web browser.
+      ? "node_modules/pyodide" // pnpm puts pyodide at this path
+      : `https://cdn.jsdelivr.net/pyodide/v${version}/full/`, // In the CI env, it looks like only the remove URL works in web browser.
   });
   await pyodide.loadPackage("micropip");
   const micropip = pyodide.pyimport("micropip");
@@ -30,12 +32,16 @@ export async function setupPyodideForTest(requirements: string[] = []): Promise<
   await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js
 transformers = await import_transformers_js()
-  `)
+  `);
 
   return pyodide;
 }
 
-export async function downloadFile(pyodide: PyodideInterface, url: string, path: string) {
+export async function downloadFile(
+  pyodide: PyodideInterface,
+  url: string,
+  path: string,
+) {
   const response = await fetch(url);
   const fileData = await response.arrayBuffer();
   pyodide.FS.writeFile(path, new Uint8Array(fileData));

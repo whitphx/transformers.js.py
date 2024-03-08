@@ -20,12 +20,18 @@ processor = await AutoProcessor.from_pretrained('Xenova/yolov9-c');
 `);
 
     const processor = await pyodide.globals.get("processor")._js_obj;
-    expect(processor.feature_extractor.size).toEqual({ "width": 640, "height": 640 });
+    expect(processor.feature_extractor.size).toEqual({
+      width: 640,
+      height: 640,
+    });
 
     await pyodide.runPythonAsync(`
 IMAGE_SIZE = 256;
 processor.feature_extractor.size = { "width": IMAGE_SIZE, "height": IMAGE_SIZE }
 `);
-    expect(processor.feature_extractor.size).toEqual({ "width": 256, "height": 256 });
-  })
+    expect(processor.feature_extractor.size).toEqual({
+      width: 256,
+      height: 256,
+    });
+  });
 });
