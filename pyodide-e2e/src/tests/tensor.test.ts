@@ -23,5 +23,5 @@ nparray = tensor.numpy()
 `);
     const nparray = await pyodide.globals.get("nparray").toJs();
     expect(nparray).toEqual(new Float32Array([1, 2, 3]));
-  })
+  });
 });

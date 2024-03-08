@@ -2,9 +2,9 @@
 
 console.log("WebWorker started");
 
-import type Pyodide from "pyodide"
+import type Pyodide from "pyodide";
 
-import wheelUrl from "transformers-js-py.whl";  // This is the alias from vite.config.ts
+import wheelUrl from "transformers-js-py.whl"; // This is the alias from vite.config.ts
 
 import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.mjs";
 
