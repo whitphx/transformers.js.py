@@ -14,7 +14,7 @@
     "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@types/node": "^20.11.20",
+    "@types/node": "^20.11.26",
     "@vitest/browser": "^1.2.2",
     "@xenova/transformers": "^2.16.0",
     "chokidar-cli": "^3.0.0",
