@@ -12,8 +12,8 @@ devDependencies:
     specifier: ^1.2.2
     version: 1.2.2(vitest@1.2.2)(webdriverio@8.35.1)
   '@xenova/transformers':
-    specifier: ^2.16.0
-    version: 2.16.0
+    specifier: ^2.16.1
+    version: 2.16.1
   chokidar-cli:
     specifier: ^3.0.0
     version: 3.0.0
@@ -248,8 +248,8 @@ packages:
     dev: true
     optional: true
 
-  /@huggingface/jinja@0.2.1:
-    resolution: {integrity: sha512-HxjVCll8oGfgUQmN91NYWCjfuaQ5mYZkc/BB1gjfp28q3s48yiB5jUEV7BvaRdIAb/+14cNdX8TIdalFykwywA==}
+  /@huggingface/jinja@0.2.2:
+    resolution: {integrity: sha512-/KPde26khDUIPkTGU82jdtTW9UAuvUTumCAbFs/7giR0SxsvZC4hru51PBvpijH6BVkHcROcvZM/lpy5h1jRRA==}
     engines: {node: '>=18'}
     dev: true
 
@@ -653,10 +653,10 @@ packages:
       - supports-color
     dev: true
 
-  /@xenova/transformers@2.16.0:
-    resolution: {integrity: sha512-UMlw9D9IHq8DSekl9J5DHB0SmEREHThqDZiMloexHoOqXF9wPLXe7Emiisqm9RPU6hKwTVAVFo2uPFxMoByF+w==}
+  /@xenova/transformers@2.16.1:
+    resolution: {integrity: sha512-p2ii7v7oC3Se0PC012dn4vt196GCroaN5ngOYJYkfg0/ce8A5frsrnnnktOBJuejG3bW5Hreb7JZ/KxtUaKd8w==}
     dependencies:
-      '@huggingface/jinja': 0.2.1
+      '@huggingface/jinja': 0.2.2
       onnxruntime-web: 1.14.0
       sharp: 0.32.6
     optionalDependencies:
