@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import path from "path";
+import { version as pyodideVersion } from "pyodide";
 import { exec } from "child_process";
 
 const getTransformersJsPyVersion = (): Promise<string> =>
@@ -24,6 +25,9 @@ export default defineConfig(async () => {
   console.debug({ transformersJsPyVersion });
 
   return {
+    define: {
+      "import.meta.env.PYODIDE_VERSION": pyodideVersion,
+    },
     resolve: {
       alias: {
         "transformers-js-py.whl": path.resolve(
