@@ -20,14 +20,23 @@ const getTransformersJsPyVersion = (): Promise<string> =>
     );
   });
 
+function injectPyodideVersionPlugin() {
+  return {
+    name: "inject-pyodide-version-into-index-html",
+    transformIndexHtml: {
+      enforce: "pre" as const,
+      transform: (html: string): string =>
+        html.replace("%PYODIDE_VERSION%", pyodideVersion),
+    },
+  };
+}
+
 export default defineConfig(async () => {
   const transformersJsPyVersion = await getTransformersJsPyVersion();
   console.debug({ transformersJsPyVersion });
 
   return {
-    define: {
-      "import.meta.env.PYODIDE_VERSION": pyodideVersion,
-    },
+    plugins: [injectPyodideVersionPlugin()],
     resolve: {
       alias: {
         "transformers-js-py.whl": path.resolve(
