@@ -145,7 +145,7 @@ class TjsRawImageProxy(TjsProxy):
 
 
 class TjsTensorProxy(TjsProxy):
-    def numpy(self):
+    def to_numpy(self):
         if np is None:
             raise RuntimeError("numpy is not available")
 

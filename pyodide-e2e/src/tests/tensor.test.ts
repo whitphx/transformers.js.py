@@ -19,7 +19,7 @@ transformers = await import_transformers_js()
 Tensor = transformers.Tensor
 tensor = Tensor(np.array([1, 2, 3], dtype=np.float32))
 
-nparray = tensor.numpy()
+nparray = tensor.to_numpy()
 `);
     const nparray = await pyodide.globals.get("nparray").toJs();
     expect(nparray).toEqual(new Float32Array([1, 2, 3]));
