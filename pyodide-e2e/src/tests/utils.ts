@@ -11,7 +11,7 @@ export async function setupPyodideForTest(
   const pyodide = await loadPyodide({
     indexURL: IS_NODE
       ? "node_modules/pyodide" // pnpm puts pyodide at this path
-      : `https://cdn.jsdelivr.net/pyodide/v${version}/full/`, // In the CI env, it looks like only the remove URL works in web browser.
+      : `https://cdn.jsdelivr.net/pyodide/v${version}/full/`, // In the CI env, it looks like only the remote URL works in web browser.
   });
   await pyodide.loadPackage("micropip");
   const micropip = pyodide.pyimport("micropip");
