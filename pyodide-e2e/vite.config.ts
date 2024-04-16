@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import path from "path";
+import { version as pyodideVersion } from "pyodide";
 import { exec } from "child_process";
 
 const getTransformersJsPyVersion = (): Promise<string> =>
@@ -19,11 +20,23 @@ const getTransformersJsPyVersion = (): Promise<string> =>
     );
   });
 
+function injectPyodideVersionPlugin() {
+  return {
+    name: "inject-pyodide-version-into-index-html",
+    transformIndexHtml: {
+      enforce: "pre" as const,
+      transform: (html: string): string =>
+        html.replace("%PYODIDE_VERSION%", pyodideVersion),
+    },
+  };
+}
+
 export default defineConfig(async () => {
   const transformersJsPyVersion = await getTransformersJsPyVersion();
   console.debug({ transformersJsPyVersion });
 
   return {
+    plugins: [injectPyodideVersionPlugin()],
     resolve: {
       alias: {
         "transformers-js-py.whl": path.resolve(
