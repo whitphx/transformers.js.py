@@ -24,7 +24,7 @@ RawImage = transformers.RawImage
 raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/bread_small.png')
 
 depth_estimator = await pipeline('depth-estimation', 'Xenova/depth-anything-small-hf')
-depth = await depth_estimator(raw_image._js_obj)
+depth = await depth_estimator(raw_image)
 print(depth)
 print(np.asarray(depth["predicted_depth"].data))
 
