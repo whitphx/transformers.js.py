@@ -15,7 +15,7 @@ repository = "https://github.com/whitphx/transformers.js.py"
 python = "^3.10"
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.4.1"
+mypy = "^1.10.0"
 types-pillow = "^10.2.0.20240423"
 numpy = "^1.26.4"
 ruff = "^0.4.1"
