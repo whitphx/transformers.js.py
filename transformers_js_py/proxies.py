@@ -2,6 +2,7 @@ import re
 from typing import Any, Awaitable, Union
 
 import js
+
 import pyodide.code
 import pyodide.ffi
 import pyodide.webloop

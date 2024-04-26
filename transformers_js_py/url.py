@@ -1,8 +1,9 @@
 import warnings
 from typing import Union
 
-import pyodide.ffi
 from js import URL as js_URL
+
+import pyodide.ffi
 
 try:
     from js import Blob as js_Blob
