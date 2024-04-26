@@ -14,6 +14,8 @@ class LazyImportProxy:
     """
 
     def __init__(self, name_segments: list[str]):
+        # Represents the path to the object in the Transformers.js library.
+        # e.g. ["pipeline"] or ["RawImage", "read"]
         self._name_segments = name_segments
 
     async def __call__(self, *args, **kwargs):
