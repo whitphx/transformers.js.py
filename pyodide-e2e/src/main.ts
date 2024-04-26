@@ -14,12 +14,8 @@ async function main() {
   await micropip.install(["numpy", "Pillow"]);
 
   await pyodide.runPythonAsync(`
-from transformers_js_py import import_transformers_js
-transformers = await import_transformers_js()
+from transformers_js_py import pipeline, RawImage
 import numpy as np
-
-pipeline = transformers.pipeline
-RawImage = transformers.RawImage
 
 raw_image = await RawImage.fromURL('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/bread_small.png')
 
