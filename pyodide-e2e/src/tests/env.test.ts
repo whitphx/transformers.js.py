@@ -10,6 +10,11 @@ describe("transformers.env", () => {
   });
 
   it("is available", async () => {
+    await pyodide.runPythonAsync(`
+from transformers_js_py import import_transformers_js
+transformers = await import_transformers_js()
+    `);
+
     const allowRemoteModels = await pyodide.runPythonAsync(
       `transformers.env.allowRemoteModels`,
     );
@@ -17,6 +22,11 @@ describe("transformers.env", () => {
   });
 
   it("is configurable", async () => {
+    await pyodide.runPythonAsync(`
+from transformers_js_py import import_transformers_js
+transformers = await import_transformers_js()
+    `);
+
     await pyodide.runPythonAsync(`transformers.env.allowRemoteModels = False`);
     const allowRemoteModels = await pyodide.runPythonAsync(
       `transformers.env.allowRemoteModels`,
