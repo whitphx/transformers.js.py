@@ -46,3 +46,24 @@ raw_image = await RawImage.read("https://huggingface.co/datasets/Xenova/transfor
     expect(rawImage).toHaveProperty("channels", 4);
   });
 });
+
+describe("transformers_js_py.AutoProcessor", () => {
+  let pyodide: PyodideInterface;
+
+  beforeEach(async () => {
+    pyodide = await setupPyodideForTest(["scipy"]);
+  });
+
+  it("can be imported from the package and loads Transformers.js internally when its static methods called", async () => {
+    await pyodide.runPythonAsync(`
+from transformers_js_py import AutoProcessor
+
+processor = await AutoProcessor.from_pretrained('Xenova/yolov9-c');
+`);
+    const processor = await pyodide.globals.get("processor")._js_obj;
+    expect(processor.feature_extractor.size).toEqual({
+      width: 640,
+      height: 640,
+    });
+  });
+});
