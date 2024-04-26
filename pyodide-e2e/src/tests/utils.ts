@@ -29,11 +29,6 @@ export async function setupPyodideForTest(
 
   await micropip.install(requirements);
 
-  await pyodide.runPythonAsync(`
-from transformers_js_py import import_transformers_js
-transformers = await import_transformers_js()
-  `);
-
   return pyodide;
 }
 

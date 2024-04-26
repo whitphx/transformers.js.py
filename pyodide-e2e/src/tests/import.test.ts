@@ -11,6 +11,10 @@ describe("import_transformers_js", () => {
 
   it("can import specific version of Transformers.js", async () => {
     await pyodide.runPythonAsync(
+      `from transformers_js_py import import_transformers_js`,
+    );
+
+    await pyodide.runPythonAsync(
       `transformers = await import_transformers_js()`,
     );
     const versionLatest = await pyodide.runPythonAsync(
