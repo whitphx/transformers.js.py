@@ -3,11 +3,13 @@ from .proxies import import_transformers_js
 
 class LazyImportProxy:
     """
-    This is a meta proxy object that calls `import_transformers_js()` to import the Transformers.js
-    and then calls the Transformers.js.py's proxy object (`.proxies.TjsProxy`)
-    of the specified method or attribute.
+    This is a proxy object that not only proxies function calls and attr accesses to the Transformers.js APIs,
+    but also imports the Transformers.js library by calling `import_transformers_js()` when calling the proxy object.
+    Importing the Transformers.js library is deferred until the proxy object is called,
+    so the developer can use the proxy object and access its attributes without awaiting the import
+    until it is actually needed by calling the proxy object.
     This makes it possible to import the proxy object of some method or attribute
-    such as `pipeline()` from the `transformers_js_py` package without calling `import_transformers_js()` explicitly,
+    such as `pipeline()` from the `transformers_js_py` package directly,
     in combination with the `__getattr__` method in the `transformers_js_py` package.
     """
 
