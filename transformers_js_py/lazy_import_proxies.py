@@ -1,7 +1,7 @@
 from .proxies import import_transformers_js
 
 
-class LazyImportProxy:
+class LazyImportTjsProxy:
     """
     This is a proxy object that not only proxies function calls and attr accesses to the Transformers.js APIs,
     but also imports the Transformers.js library by calling `import_transformers_js()` when calling the proxy object.
@@ -26,11 +26,11 @@ class LazyImportProxy:
         return await obj(*args, **kwargs)
 
     def __getattr__(self, name: str):
-        return LazyImportProxy(self._name_segments + [name])
+        return LazyImportTjsProxy(self._name_segments + [name])
 
     def __repr__(self):
         return f"{self.__class__.__name__}({'.'.join(self._name_segments)})"
 
 
 def get_deferred_import_proxy(tjs_object_name: str):
-    return LazyImportProxy([tjs_object_name])
+    return LazyImportTjsProxy([tjs_object_name])
