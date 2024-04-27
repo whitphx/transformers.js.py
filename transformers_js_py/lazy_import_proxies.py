@@ -1,3 +1,5 @@
+from typing import Awaitable
+
 from .proxies import import_transformers_js
 
 
@@ -23,7 +25,10 @@ class LazyImportTjsProxy:
         obj = transformers
         for name in self._name_segments:
             obj = getattr(obj, name)
-        return await obj(*args, **kwargs)
+        res = obj(*args, **kwargs)
+        if isinstance(res, Awaitable):
+            return await res
+        return res
 
     def __getattr__(self, name: str):
         return LazyImportTjsProxy(self._name_segments + [name])
