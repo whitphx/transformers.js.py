@@ -32,5 +32,5 @@ class LazyImportTjsProxy:
         return f"{self.__class__.__name__}({'.'.join(self._name_segments)})"
 
 
-def get_deferred_import_proxy(tjs_object_name: str):
+def get_lazy_import_tjs_proxy(tjs_object_name: str):
     return LazyImportTjsProxy([tjs_object_name])
