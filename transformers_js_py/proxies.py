@@ -105,6 +105,9 @@ class TjsProxy:
             value = to_js(value)
             setattr(self._js_obj, name, value)
 
+    def __repr__(self) -> str:
+        dictified_self = {k: getattr(self, k) for k in self._js_obj.object_keys()}
+        return "<TjsProxy({})>".format(repr(dictified_self))
 
 class TjsRawImageClassProxy(TjsProxy):
     def read(
