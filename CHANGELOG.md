@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.0] - 2024-05-01
+
+### Added
+
+- Set `numpy` and `scipy` as `[audio]` extra dependencies, [#148](https://github.com/whitphx/transformers.js.py/pull/148).
+
 ## [0.14.0] - 2024-04-27
 
 ### Added
