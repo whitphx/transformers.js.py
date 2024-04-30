@@ -133,7 +133,7 @@ files = [
 name = "scipy"
 version = "1.13.0"
 description = "Fundamental algorithms for scientific computing in Python"
-optional = false
+optional = true
 python-versions = ">=3.9"
 files = [
     {file = "scipy-1.13.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:ba419578ab343a4e0a77c0ef82f088238a93eef141b2b8017e46149776dfad4d"},
@@ -204,7 +204,10 @@ files = [
     {file = "typing_extensions-4.11.0.tar.gz", hash = "sha256:83f085bd5ca59c80295fc2a82ab5dac679cbe02b9f33f7d83af68e241bea51b0"},
 ]
 
+[extras]
+audio = ["numpy", "scipy"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "e2ce7651f36b8df67a7ec7d697f1e4526bdf25f4ada736dff5c9ade19480b1a3"
+content-hash = "36342f9920e33127092e62a7b6f3452c2f2607867aab40768373a88ef1006c8a"

@@ -13,8 +13,11 @@ repository = "https://github.com/whitphx/transformers.js.py"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-numpy = {version = "^1.22.3", extras = ["audio"]}
-scipy = {version = "^1.8.0", extras = ["audio"]}
+numpy = { version = "^1.22.3", optional = true }
+scipy = { version = "^1.8.0", optional = true }
+
+[tool.poetry.extras]
+audio = ["numpy", "scipy"]
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.10.0"
