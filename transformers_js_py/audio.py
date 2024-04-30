@@ -11,11 +11,12 @@ def read_audio(filename, sampling_rate: int) -> "np.ndarray":
 
     try:
         import numpy as np
-        import scipy  # type: ignore
-    except ImportError:
+        import scipy.io.wavfile  # type: ignore
+        import scipy.signal  # type: ignore
+    except ImportError as e:
         raise ImportError(
-            "You need to have `numpy` and `scipy` installed to use this feature."
-        )
+            "You need to have `numpy` and `scipy` installed to use this feature. Install `transformers-js-py[audio]` to install the dependencies."
+        ) from e
 
     original_sample_rate, samples = scipy.io.wavfile.read(filename, mmap=False)
 
