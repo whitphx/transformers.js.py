@@ -109,6 +109,7 @@ class TjsProxy:
         dictified_self = {k: getattr(self, k) for k in self._js_obj.object_keys()}
         return "<TjsProxy({})>".format(repr(dictified_self))
 
+
 class TjsRawImageClassProxy(TjsProxy):
     def read(
         self, input: Union["TjsRawImageProxy", str]
