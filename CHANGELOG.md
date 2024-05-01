@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.0] - 2024-05-01
+
+### Added
+
+- `TjsProxy.__repr__`, [#149](https://github.com/whitphx/transformers.js.py/pull/149).
+
 ## [0.15.0] - 2024-05-01
 
 ### Added
