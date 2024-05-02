@@ -1,4 +1,5 @@
 import re
+from collections.abc import Mapping
 from typing import Any, Awaitable, Union
 
 import js
@@ -62,7 +63,7 @@ def to_js(obj: Any) -> Any:
     )
 
 
-class TjsProxy:
+class TjsProxy(Mapping):
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
         self._js_obj = js_obj
         self._is_class = self._js_obj.typeof == "function" and rx_class_def_code.match(
@@ -90,8 +91,8 @@ class TjsProxy:
         res = getattr(self._js_obj, name)
         return wrap_or_unwrap_proxy_object(res)
 
-    def __getitem__(self, key: Any) -> Any:
-        res = self._js_obj[key]
+    def __getitem__(self, name: Any) -> Any:
+        res = getattr(self._js_obj, name)
         return wrap_or_unwrap_proxy_object(res)
 
     def __setitem__(self, key: Any, value: Any) -> None:
@@ -105,9 +106,11 @@ class TjsProxy:
             value = to_js(value)
             setattr(self._js_obj, name, value)
 
-    def __repr__(self) -> str:
-        dictified_self = {k: getattr(self, k) for k in self._js_obj.object_keys()}
-        return "<TjsProxy({})>".format(repr(dictified_self))
+    def __iter__(self):
+        return iter(self._js_obj.object_keys())
+
+    def __len__(self):
+        return len(self._js_obj.object_keys())
 
 
 class TjsRawImageClassProxy(TjsProxy):
