@@ -1,7 +1,7 @@
-try:
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
     import numpy as np
-except ImportError:
-    np = None  # type: ignore
 
 
 def read_audio(filename, sampling_rate: int) -> "np.ndarray":
