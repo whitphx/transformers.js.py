@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.0] - 2024-05-02
+
+### Added
+
+- Make `TjsProxy` a subclass of `collections.abc.Mapping`, [#151](https://github.com/whitphx/transformers.js.py/pull/151).
+
 ## [0.16.0] - 2024-05-01
 
 ### Added
