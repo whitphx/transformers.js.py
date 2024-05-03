@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.1] - 2024-05-03
+
+### Fixed
+
+- `numpy` typing in the `audio` module, [#152](https://github.com/whitphx/transformers.js.py/pull/152).
+
 ## [0.17.0] - 2024-05-02
 
 ### Added
