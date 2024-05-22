@@ -1,6 +1,6 @@
 import re
 from collections.abc import Mapping
-from typing import Any, Awaitable, Union
+from typing import Any, Awaitable, Union, Tuple
 
 import js
 import pyodide.code
@@ -20,7 +20,7 @@ except ImportError:
     PILImage = None  # type: ignore
 
 
-_TRANSFORMERS_JS = None
+_TRANSFORMERS_JS: Tuple[str, "TjsModuleProxy"] | None = None
 
 
 rx_class_def_code = re.compile(r"^\s*class\s+([a-zA-Z0-9_]+)\s*{", re.MULTILINE)
@@ -173,11 +173,13 @@ def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy):
             "transformers_js_py.import_transformers_js() must be called first"
         )
 
-    if js_obj == _TRANSFORMERS_JS.RawImage:
+    _, tjs_module_proxy = _TRANSFORMERS_JS
+    tjs_module = tjs_module_proxy.js_obj
+    if js_obj == tjs_module.RawImage:
         return TjsRawImageClassProxy(js_obj)
-    if js_obj.constructor == _TRANSFORMERS_JS.RawImage:
+    if js_obj.constructor == tjs_module.RawImage:
         return TjsRawImageProxy(js_obj)
-    if js_obj.constructor == _TRANSFORMERS_JS.Tensor:
+    if js_obj.constructor == tjs_module.Tensor:
         return TjsTensorProxy(js_obj)
     return TjsProxy(js_obj)
 
@@ -202,6 +204,13 @@ def wrap_or_unwrap_proxy_object(obj):
 
 
 async def import_transformers_js(version: str = "latest"):
+    global _TRANSFORMERS_JS
+
+    if _TRANSFORMERS_JS:
+        cached_version, cached_tjs_module_proxy = _TRANSFORMERS_JS
+        if version == cached_version:
+            return cached_tjs_module_proxy
+
     loadTransformersJsFn = pyodide.code.run_js(
         """
     async (version) => {
@@ -218,6 +227,7 @@ async def import_transformers_js(version: str = "latest"):
     }
     """  # noqa: E501
     )
-    global _TRANSFORMERS_JS
-    _TRANSFORMERS_JS = await loadTransformersJsFn(version)
-    return TjsModuleProxy(_TRANSFORMERS_JS)
+    tjs_module = await loadTransformersJsFn(version)
+    tjs_module_proxy = TjsModuleProxy(tjs_module)
+    _TRANSFORMERS_JS = (version, tjs_module_proxy)
+    return tjs_module_proxy
