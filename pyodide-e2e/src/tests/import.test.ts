@@ -38,5 +38,11 @@ describe("import_transformers_js", () => {
     );
     const version270 = await pyodide.runPythonAsync(`transformers.env.version`);
     expect(version270).toBe("2.7.0");
+
+    await pyodide.runPythonAsync(
+      `transformers = await import_transformers_js("https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1")`,
+    );
+    const version2177 = await pyodide.runPythonAsync(`transformers.env.version`);
+    expect(version2177).toBe("2.17.1");
   });
 });
