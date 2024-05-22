@@ -159,7 +159,9 @@ class TjsTensorProxy(TjsProxy):
         # while Transformers.js strictly requires `null` as the value for `undefined` in the slice method.
         # So, we need to convert None to the actual value of the dimension before proxying them to JS.
         start = py_slice.start if py_slice.start is not None else 0
-        stop = py_slice.stop if py_slice.stop is not None else self._js_obj.dims[dim_idx]
+        stop = (
+            py_slice.stop if py_slice.stop is not None else self._js_obj.dims[dim_idx]
+        )
         return start, stop
 
     def __getitem__(self, key):
