@@ -153,13 +153,28 @@ class TjsRawImageProxy(TjsProxy):
 
 class TjsTensorProxy(TjsProxy):
     def __getitem__(self, key):
-        if isinstance(key, slice):
-            # TODO: Implement slicing
-            raise NotImplementedError("Slicing is not supported yet")
+        if isinstance(key, tuple):
+            # proxy[1, 2:3] will call this method with key=(1, slice(2, 3, None))
+            slices: list[tuple[int, int] | int] = []
+            for k in key:
+                if isinstance(k, slice):
+                    if k.step is not None:
+                        raise ValueError("step is not supported for slicing")
+                    slices.append((k.start, k.stop))
+                else:
+                    slices.append(k)
+        elif isinstance(key, slice):
+            if key.step is not None:
+                raise ValueError("step is not supported for slicing")
+            slices = [key.start, key.stop]
         elif isinstance(key, int):
-            return self._js_obj._getitem(key)
+            slices = [key]
         else:
             return super().__getitem__(key)
+
+        slices = pyodide.ffi.to_js(slices)
+        res = self._js_obj.slice(*slices)
+        return TjsTensorProxy(res)
 
     def to_numpy(self):
         if np is None:
