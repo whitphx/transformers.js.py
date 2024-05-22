@@ -109,6 +109,9 @@ sliced = tensor[:, 1:]
 nparray = sliced.to_numpy()
 `);
     const nparray = await pyodide.globals.get("nparray").toJs();
-    expect(nparray).toEqual([new Float32Array([2, 3]), new Float32Array([5, 6])]);
+    expect(nparray).toEqual([
+      new Float32Array([2, 3]),
+      new Float32Array([5, 6]),
+    ]);
   });
 });
