@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.18.0] - 2024-05-22
+
+### Added
+
+- `import_transformers_js` also accepts a URL not only a version string, [#164](https://github.com/whitphx/transformers.js.py/pull/164).
+- `TjsTensorProxy` now supports slicing, [#163](https://github.com/whitphx/transformers.js.py/pull/163).
+
 ## [0.17.1] - 2024-05-03
 
 ### Fixed
