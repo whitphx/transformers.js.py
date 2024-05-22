@@ -201,14 +201,24 @@ def wrap_or_unwrap_proxy_object(obj):
     return obj
 
 
-async def import_transformers_js(version: str = "latest"):
+async def import_transformers_js(version_or_url: str = "latest"):
     loadTransformersJsFn = pyodide.code.run_js(
         """
-    async (version) => {
+    async (versionOrUrl) => {
+        function getTransformersJsUrl() {
+            try {
+                return new URL(versionOrUrl);
+            } catch {
+                const version = versionOrUrl;
+                return new URL('https://cdn.jsdelivr.net/npm/@xenova/transformers@' + version);
+            }
+        }
+
         const isBrowserMainThread = typeof window !== 'undefined';
         const isWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
         const isBrowser = isBrowserMainThread || isWorker;
-        const transformers = await import(isBrowser ? 'https://cdn.jsdelivr.net/npm/@xenova/transformers@' + version : '@xenova/transformers');
+
+        const transformers = await import(isBrowser ? getTransformersJsUrl() : '@xenova/transformers');
 
         transformers.env.allowLocalModels = false;
 
@@ -219,5 +229,5 @@ async def import_transformers_js(version: str = "latest"):
     """  # noqa: E501
     )
     global _TRANSFORMERS_JS
-    _TRANSFORMERS_JS = await loadTransformersJsFn(version)
+    _TRANSFORMERS_JS = await loadTransformersJsFn(version_or_url)
     return TjsModuleProxy(_TRANSFORMERS_JS)
