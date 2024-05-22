@@ -152,6 +152,15 @@ class TjsRawImageProxy(TjsProxy):
 
 
 class TjsTensorProxy(TjsProxy):
+    def __getitem__(self, key):
+        if isinstance(key, slice):
+            # TODO: Implement slicing
+            raise NotImplementedError("Slicing is not supported yet")
+        elif isinstance(key, int):
+            return self._js_obj._getitem(key)
+        else:
+            return super().__getitem__(key)
+
     def to_numpy(self):
         if np is None:
             raise RuntimeError("numpy is not available")
