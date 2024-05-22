@@ -44,7 +44,24 @@ scalar = float(nparray)
     expect(scalar).toBe(2);
   });
 
-  it("can be sliced", async () => {
+  it("can be sliced with a single slice", async () => {
+    await pyodide.runPythonAsync(`
+from transformers_js_py import import_transformers_js
+import numpy as np
+
+transformers = await import_transformers_js()
+
+Tensor = transformers.Tensor
+tensor = Tensor("float32", [1, 2, 3, 4, 5, 6], [2, 3])
+
+sliced = tensor[1:2]
+nparray = sliced.to_numpy()
+`);
+    const nparray = await pyodide.globals.get("nparray").toJs();
+    expect(nparray).toEqual([new Float32Array([4, 5, 6])]);
+  });
+
+  it("can be sliced with multiple slices", async () => {
     await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js
 import numpy as np
@@ -61,7 +78,24 @@ nparray = sliced.to_numpy()
     expect(nparray).toEqual(new Float32Array([5, 6]));
   });
 
-  it("can be sliced with null indexes", async () => {
+  it("can be sliced with a single slice including null indexes", async () => {
+    await pyodide.runPythonAsync(`
+from transformers_js_py import import_transformers_js
+import numpy as np
+
+transformers = await import_transformers_js()
+
+Tensor = transformers.Tensor
+tensor = Tensor("float32", [1, 2, 3, 4, 5, 6], [2, 3])
+
+sliced = tensor[1:]
+nparray = sliced.to_numpy()
+`);
+    const nparray = await pyodide.globals.get("nparray").toJs();
+    expect(nparray).toEqual([new Float32Array([4, 5, 6])]);
+  });
+
+  it("can be sliced with multiple slices including null indexes", async () => {
     await pyodide.runPythonAsync(`
 from transformers_js_py import import_transformers_js
 import numpy as np
