@@ -60,4 +60,21 @@ nparray = sliced.to_numpy()
     const nparray = await pyodide.globals.get("nparray").toJs();
     expect(nparray).toEqual(new Float32Array([5, 6]));
   });
+
+  it("can be sliced with null indexes", async () => {
+    await pyodide.runPythonAsync(`
+from transformers_js_py import import_transformers_js
+import numpy as np
+
+transformers = await import_transformers_js()
+
+Tensor = transformers.Tensor
+tensor = Tensor("float32", [1, 2, 3, 4, 5, 6], [2, 3])
+
+sliced = tensor[:, 1:]
+nparray = sliced.to_numpy()
+`);
+    const nparray = await pyodide.globals.get("nparray").toJs();
+    expect(nparray).toEqual([new Float32Array([2, 3]), new Float32Array([5, 6])]);
+  });
 });

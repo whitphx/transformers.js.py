@@ -152,21 +152,27 @@ class TjsRawImageProxy(TjsProxy):
 
 
 class TjsTensorProxy(TjsProxy):
+    def _compile_slice(self, py_slice: slice, dim_idx: int) -> tuple[int, int]:
+        if py_slice.step is not None:
+            raise ValueError("step is not supported for slicing")
+        # None can't be passed to JS via Pyodide (see https://pyodide.org/en/stable/usage/type-conversions.html),
+        # while Transformers.js strictly requires `null` as the value for `undefined` in the slice method.
+        # So, we need to convert None to the actual value of the dimension before proxying them to JS.
+        start = py_slice.start if py_slice.start is not None else 0
+        stop = py_slice.stop if py_slice.stop is not None else self._js_obj.dims[dim_idx]
+        return start, stop
+
     def __getitem__(self, key):
         if isinstance(key, tuple):
             # proxy[1, 2:3] will call this method with key=(1, slice(2, 3, None))
             slices: list[tuple[int, int] | int] = []
-            for k in key:
+            for i, k in enumerate(key):
                 if isinstance(k, slice):
-                    if k.step is not None:
-                        raise ValueError("step is not supported for slicing")
-                    slices.append((k.start, k.stop))
+                    slices.append(self._compile_slice(k, i))
                 else:
                     slices.append(k)
         elif isinstance(key, slice):
-            if key.step is not None:
-                raise ValueError("step is not supported for slicing")
-            slices = [key.start, key.stop]
+            slices = [self._compile_slice(key, 0)]
         elif isinstance(key, int):
             slices = [key]
         else:
