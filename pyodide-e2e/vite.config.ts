@@ -29,13 +29,13 @@ function injectPyodideVersionPlugin() {
         html.replace("%PYODIDE_VERSION%", pyodideVersion),
     },
     transform(code, id) {
-      const fileUrl = new URL(id, "file://");  // id may contains query string, so parse it as URL
+      const fileUrl = new URL(id, "file://"); // id may contains query string, so parse it as URL
       const fileBasename = path.basename(fileUrl.pathname);
       if (fileBasename === "worker.ts") {
         return code.replace("%PYODIDE_VERSION%", pyodideVersion);
       }
       return code;
-    }
+    },
   };
 }
 
