@@ -24,8 +24,8 @@ devDependencies:
     specifier: 3.3.1
     version: 3.3.1
   pyodide:
-    specifier: ^0.25.1
-    version: 0.25.1
+    specifier: ^0.26.0
+    version: 0.26.0
   typescript:
     specifier: ^5.4.5
     version: 5.4.5
@@ -895,10 +895,6 @@ packages:
       streamx: 2.18.0
     dev: true
     optional: true
-
-  /base-64@1.0.0:
-    resolution: {integrity: sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==}
-    dev: true
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -2878,10 +2874,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /pyodide@0.25.1:
-    resolution: {integrity: sha512-y0nJ/fLA3bxD2iZRzvVTbP2O+wp4Ewm2wThfV4HF0BytQ6hsoqTJFLNY4usLOcCVBrK8TTWqFqrmsVPzHe4rsw==}
+  /pyodide@0.26.0:
+    resolution: {integrity: sha512-6thkjsvbvebqNlb2mtkVF5ODcWUYT0lVuOgww4cfEJFVM0J3MtTNPznVahVDzKOdCwSWvCfAqeEqP0wR6jj5uQ==}
+    engines: {node: '>=18.0.0'}
     dependencies:
-      base-64: 1.0.0
       ws: 8.17.0
     transitivePeerDependencies:
       - bufferutil
