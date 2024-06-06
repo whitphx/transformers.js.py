@@ -12,8 +12,8 @@ devDependencies:
     specifier: ^1.2.2
     version: 1.2.2(vitest@1.2.2)(webdriverio@8.38.0)
   '@xenova/transformers':
-    specifier: ^2.17.1
-    version: 2.17.1
+    specifier: ^2.17.2
+    version: 2.17.2
   chokidar-cli:
     specifier: ^3.0.0
     version: 3.0.0
@@ -653,8 +653,8 @@ packages:
       - supports-color
     dev: true
 
-  /@xenova/transformers@2.17.1:
-    resolution: {integrity: sha512-zo702tQAFZXhzeD2GCYUNUqeqkoueOdiSbQWa4s0q7ZE4z8WBIwIsMMPGobpgdqjQ2u0Qulo08wuqVEUrBXjkQ==}
+  /@xenova/transformers@2.17.2:
+    resolution: {integrity: sha512-lZmHqzrVIkSvZdKZEx7IYY51TK0WDrC8eR0c5IMnBsO8di8are1zzw8BlLhyO2TklZKLN5UffNGs1IJwT6oOqQ==}
     dependencies:
       '@huggingface/jinja': 0.2.2
       onnxruntime-web: 1.14.0
