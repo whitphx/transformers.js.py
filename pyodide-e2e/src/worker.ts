@@ -6,7 +6,7 @@ import type Pyodide from "pyodide";
 
 import wheelUrl from "transformers-js-py.whl"; // This is the alias from vite.config.ts
 
-import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.mjs";
+import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v%PYODIDE_VERSION%/full/pyodide.mjs";
 
 async function main() {
   const pyodide: Pyodide.PyodideInterface = await loadPyodide();
