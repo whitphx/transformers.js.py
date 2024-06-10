@@ -354,3 +354,45 @@ pn.chat.ChatInterface(
 
 For more chat examples see [Panel Chat Examples](https://holoviz-topics.github.io/panel-chat-examples/).
 </details>
+
+### Solara on py.cafe
+
+[Py.cafe](https://py.cafe) is an online Python sandbox environment that supports many web frameworks, here is an example using [Solara](https://solara.dev)
+
+[![pycafe screenshot](https://hezgylystgzpchfksyvu.supabase.co/storage/v1/object/public/project_files/73168621-a7f1-4438-9853-d1f1daa6f1ee/lyua6mmd6f4/preview.webp)](https://py.cafe/maartenbreddels/solara-transformers_js_py)
+
+[👉 Online demo](https://py.cafe/maartenbreddels/solara-transformers_js_py) : try out this code online on [![py.cafe](https://py.cafe/badge.svg)](https://py.cafe/maartenbreddels/solara-transformers_js_py).
+
+```python
+import solara
+
+clicks = solara.reactive(0)
+input = solara.reactive("I love transformers")
+
+from transformers_js_py import import_transformers_js
+
+@solara.lab.task
+async def run(input):
+
+    transformers = await import_transformers_js()
+    pipeline = transformers.pipeline
+
+    # Allocate a pipeline for sentiment-analysis
+    pipe = await pipeline('sentiment-analysis')
+
+    out = await pipe(input)
+    # [{'label': 'POSITIVE', 'score': 0.999817686}]
+    return out
+
+@solara.component
+def Page():
+    if run.error:
+        solara.Error(repr(run.exception))
+    with solara.Card("Sentiment analysis"):
+        solara.ProgressLinear(run.pending)
+        with solara.Div():
+            solara.InputText(label="Input", value=input)
+            solara.Button(label=f"Analyze sentiment", on_click=lambda: run(input.value), color="primary", filled=True)
+        if run.finished:
+            solara.Text(repr(run.value))
+```
