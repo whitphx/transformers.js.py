@@ -24,8 +24,8 @@ devDependencies:
     specifier: 3.3.2
     version: 3.3.2
   pyodide:
-    specifier: ^0.26.0
-    version: 0.26.0
+    specifier: ^0.26.1
+    version: 0.26.1
   typescript:
     specifier: ^5.4.5
     version: 5.4.5
@@ -2874,8 +2874,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /pyodide@0.26.0:
-    resolution: {integrity: sha512-6thkjsvbvebqNlb2mtkVF5ODcWUYT0lVuOgww4cfEJFVM0J3MtTNPznVahVDzKOdCwSWvCfAqeEqP0wR6jj5uQ==}
+  /pyodide@0.26.1:
+    resolution: {integrity: sha512-P+Gm88nwZqY7uBgjbQH8CqqU6Ei/rDn7pS1t02sNZsbyLJMyE2OVXjgNuqVT3KqYWnyGREUN0DbBUCJqk8R0ew==}
     engines: {node: '>=18.0.0'}
     dependencies:
       ws: 8.17.0
