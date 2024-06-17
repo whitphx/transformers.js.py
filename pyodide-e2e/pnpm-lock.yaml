@@ -6,8 +6,8 @@ settings:
 
 devDependencies:
   '@types/node':
-    specifier: ^20.14.2
-    version: 20.14.2
+    specifier: ^20.14.3
+    version: 20.14.3
   '@vitest/browser':
     specifier: ^1.2.2
     version: 1.6.0(vitest@1.6.0)(webdriverio@8.38.2)
@@ -31,10 +31,10 @@ devDependencies:
     version: 5.4.5
   vite:
     specifier: ^5.3.0
-    version: 5.3.0(@types/node@20.14.2)
+    version: 5.3.0(@types/node@20.14.3)
   vitest:
     specifier: ^1.2.2
-    version: 1.6.0(@types/node@20.14.2)(@vitest/browser@1.6.0)
+    version: 1.6.0(@types/node@20.14.3)(@vitest/browser@1.6.0)
   webdriverio:
     specifier: ^8.38.2
     version: 8.38.2(typescript@5.4.5)
@@ -536,8 +536,8 @@ packages:
     resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
     dev: true
 
-  /@types/node@20.14.2:
-    resolution: {integrity: sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==}
+  /@types/node@20.14.3:
+    resolution: {integrity: sha512-Nuzqa6WAxeGnve6SXqiPAM9rA++VQs+iLZ1DDd56y0gdvygSZlQvZuvdFPR3yLqkVxPu4WrO02iDEyH1g+wazw==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -549,14 +549,14 @@ packages:
   /@types/ws@8.5.10:
     resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
     dev: true
 
   /@types/yauzl@2.10.3:
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
     requiresBuild: true
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
     dev: true
     optional: true
 
@@ -578,7 +578,7 @@ packages:
       '@vitest/utils': 1.6.0
       magic-string: 0.30.10
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@20.14.2)(@vitest/browser@1.6.0)
+      vitest: 1.6.0(@types/node@20.14.3)(@vitest/browser@1.6.0)
       webdriverio: 8.38.2(typescript@5.4.5)
     dev: true
 
@@ -654,14 +654,14 @@ packages:
     resolution: {integrity: sha512-321F3sWafnlw93uRTSjEBVuvWCxTkWNDs7ektQS15drrroL3TMeFOynu4rDrIz0jXD9Vas0HCD2Tq/P0uxFLdw==}
     engines: {node: ^16.13 || >=18}
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
     dev: true
 
   /@wdio/types@8.38.2:
     resolution: {integrity: sha512-+wj1c1OSLdnN4WO5b44Ih4263dTl/eSwMGSI4/pCgIyXIuYQH38JQ+6WRa+c8vJEskUzboq2cSgEQumVZ39ozQ==}
     engines: {node: ^16.13 || >=18}
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
     dev: true
 
   /@wdio/utils@8.38.2:
@@ -2804,7 +2804,7 @@ packages:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/long': 4.0.2
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
       long: 4.0.0
     dev: true
 
@@ -3640,7 +3640,7 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-node@1.6.0(@types/node@20.14.2):
+  /vite-node@1.6.0(@types/node@20.14.3):
     resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -3649,7 +3649,7 @@ packages:
       debug: 4.3.5
       pathe: 1.1.2
       picocolors: 1.0.1
-      vite: 5.3.0(@types/node@20.14.2)
+      vite: 5.3.0(@types/node@20.14.3)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3661,7 +3661,7 @@ packages:
       - terser
     dev: true
 
-  /vite@5.3.0(@types/node@20.14.2):
+  /vite@5.3.0(@types/node@20.14.3):
     resolution: {integrity: sha512-hA6vAVK977NyW1Qw+fLvqSo7xDPej7von7C3DwwqPRmnnnK36XEBC/J3j1V5lP8fbt7y0TgTKJbpNGSwM+Bdeg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -3689,7 +3689,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
       esbuild: 0.21.5
       postcss: 8.4.38
       rollup: 4.18.0
@@ -3697,7 +3697,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@1.6.0(@types/node@20.14.2)(@vitest/browser@1.6.0):
+  /vitest@1.6.0(@types/node@20.14.3)(@vitest/browser@1.6.0):
     resolution: {integrity: sha512-H5r/dN06swuFnzNFhq/dnz37bPXnq8xB2xB5JOVk8K09rUtoeNN+LHWkoQ0A/i3hvbUKKcCei9KpbxqHMLhLLA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -3722,7 +3722,7 @@ packages:
       jsdom:
         optional: true
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
       '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@8.38.2)
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
@@ -3741,8 +3741,8 @@ packages:
       strip-literal: 2.1.0
       tinybench: 2.8.0
       tinypool: 0.8.4
-      vite: 5.3.0(@types/node@20.14.2)
-      vite-node: 1.6.0(@types/node@20.14.2)
+      vite: 5.3.0(@types/node@20.14.3)
+      vite-node: 1.6.0(@types/node@20.14.3)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -3775,7 +3775,7 @@ packages:
     resolution: {integrity: sha512-NGfjW0BDYwFgOIzeojOcWGn3tYloQdvHr+Y2xKKYVqa9Rs0x1mzlTjU1kWtC4DaV8DltskwaPa7o+s8hTNpuyA==}
     engines: {node: ^16.13 || >=18}
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
       '@types/ws': 8.5.10
       '@wdio/config': 8.38.2
       '@wdio/logger': 8.38.0
@@ -3801,7 +3801,7 @@ packages:
       devtools:
         optional: true
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.3
       '@wdio/config': 8.38.2
       '@wdio/logger': 8.38.0
       '@wdio/protocols': 8.38.0
