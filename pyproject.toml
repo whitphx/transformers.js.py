@@ -20,7 +20,7 @@ scipy = { version = "^1.13.1", optional = true }
 audio = ["numpy", "scipy"]
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.10.0"
+mypy = "^1.10.1"
 types-pillow = "^10.2.0.20240520"
 numpy = "^1.26.4"
 ruff = "^0.4.10"
