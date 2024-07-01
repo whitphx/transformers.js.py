@@ -13,7 +13,7 @@ importers:
         version: 20.14.9
       '@vitest/browser':
         specifier: ^1.2.2
-        version: 1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.4.5))
+        version: 1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.5.2))
       '@xenova/transformers':
         specifier: ^2.17.2
         version: 2.17.2
@@ -30,8 +30,8 @@ importers:
         specifier: ^0.26.1
         version: 0.26.1
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: ^5.5.2
+        version: 5.5.2
       vite:
         specifier: ^5.3.2
         version: 5.3.2(@types/node@20.14.9)
@@ -40,7 +40,7 @@ importers:
         version: 1.6.0(@types/node@20.14.9)(@vitest/browser@1.6.0)
       webdriverio:
         specifier: ^8.39.0
-        version: 8.39.0(typescript@5.4.5)
+        version: 8.39.0(typescript@5.5.2)
 
 packages:
 
@@ -1980,8 +1980,8 @@ packages:
     resolution: {integrity: sha512-/OxDN6OtAk5KBpGb28T+HZc2M+ADtvRxXrKKbUwtsLgdoxgX13hyy7ek6bFRl5+aBs2yZzB0c4CnQfAtVypW/g==}
     engines: {node: '>= 0.4'}
 
-  typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
+  typescript@5.5.2:
+    resolution: {integrity: sha512-NcRtPEOsPFFWjobJEtfihkLCZCXZt/os3zf8nTxjVH3RvTSxjrCamJpbExGvYOF+tFHc3pA65qpdwPbzjohhew==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2323,7 +2323,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@puppeteer/browsers@1.4.6(typescript@5.4.5)':
+  '@puppeteer/browsers@1.4.6(typescript@5.5.2)':
     dependencies:
       debug: 4.3.4
       extract-zip: 2.0.1
@@ -2333,7 +2333,7 @@ snapshots:
       unbzip2-stream: 1.4.3
       yargs: 17.7.1
     optionalDependencies:
-      typescript: 5.4.5
+      typescript: 5.5.2
     transitivePeerDependencies:
       - supports-color
 
@@ -2428,14 +2428,14 @@ snapshots:
       '@types/node': 20.14.9
     optional: true
 
-  '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.4.5))':
+  '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.5.2))':
     dependencies:
       '@vitest/utils': 1.6.0
       magic-string: 0.30.10
       sirv: 2.0.4
       vitest: 1.6.0(@types/node@20.14.9)(@vitest/browser@1.6.0)
     optionalDependencies:
-      webdriverio: 8.39.0(typescript@5.4.5)
+      webdriverio: 8.39.0(typescript@5.5.2)
 
   '@vitest/expect@1.6.0':
     dependencies:
@@ -3802,16 +3802,16 @@ snapshots:
       end-of-stream: 1.4.4
       once: 1.4.0
 
-  puppeteer-core@20.9.0(typescript@5.4.5):
+  puppeteer-core@20.9.0(typescript@5.5.2):
     dependencies:
-      '@puppeteer/browsers': 1.4.6(typescript@5.4.5)
+      '@puppeteer/browsers': 1.4.6(typescript@5.5.2)
       chromium-bidi: 0.4.16(devtools-protocol@0.0.1147663)
       cross-fetch: 4.0.0
       debug: 4.3.4
       devtools-protocol: 0.0.1147663
       ws: 8.13.0
     optionalDependencies:
-      typescript: 5.4.5
+      typescript: 5.5.2
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -4265,7 +4265,7 @@ snapshots:
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
 
-  typescript@5.4.5: {}
+  typescript@5.5.2: {}
 
   ufo@1.5.3: {}
 
@@ -4344,7 +4344,7 @@ snapshots:
       why-is-node-running: 2.2.2
     optionalDependencies:
       '@types/node': 20.14.9
-      '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.4.5))
+      '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.5.2))
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -4382,7 +4382,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  webdriverio@8.39.0(typescript@5.4.5):
+  webdriverio@8.39.0(typescript@5.5.2):
     dependencies:
       '@types/node': 20.14.9
       '@wdio/config': 8.39.0
@@ -4403,7 +4403,7 @@ snapshots:
       lodash.clonedeep: 4.5.0
       lodash.zip: 4.2.0
       minimatch: 9.0.4
-      puppeteer-core: 20.9.0(typescript@5.4.5)
+      puppeteer-core: 20.9.0(typescript@5.5.2)
       query-selector-shadow-dom: 1.0.1
       resq: 1.11.0
       rgb2hex: 0.2.5
