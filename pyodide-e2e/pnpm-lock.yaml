@@ -13,7 +13,7 @@ importers:
         version: 20.14.9
       '@vitest/browser':
         specifier: ^1.2.2
-        version: 1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.5.3))
+        version: 1.6.0(vitest@1.6.0)(webdriverio@8.39.1(typescript@5.5.3))
       '@xenova/transformers':
         specifier: ^2.17.2
         version: 2.17.2
@@ -39,8 +39,8 @@ importers:
         specifier: ^1.2.2
         version: 1.6.0(@types/node@20.14.9)(@vitest/browser@1.6.0)
       webdriverio:
-        specifier: ^8.39.0
-        version: 8.39.0(typescript@5.5.3)
+        specifier: ^8.39.1
+        version: 8.39.1(typescript@5.5.3)
 
 packages:
 
@@ -2082,8 +2082,8 @@ packages:
     resolution: {integrity: sha512-Kc3+SfiH4ufyrIht683VT2vnJocx0pfH8rYdyPvEh1b2OYewtFTHK36k9rBDHZiBmk6jcSXs4M2xeFgOuon9Lg==}
     engines: {node: ^16.13 || >=18}
 
-  webdriverio@8.39.0:
-    resolution: {integrity: sha512-pDpGu0V+TL1LkXPode67m3s+IPto4TcmcOzMpzFgu2oeLMBornoLN3yQSFR1fjZd1gK4UfnG3lJ4poTGOfbWfw==}
+  webdriverio@8.39.1:
+    resolution: {integrity: sha512-dPwLgLNtP+l4vnybz+YFxxH8nBKOP7j6VVzKtfDyTLDQg9rz3U8OA4xMMQCBucnrVXy3KcKxGqlnMa+c4IfWCQ==}
     engines: {node: ^16.13 || >=18}
     peerDependencies:
       devtools: ^8.14.0
@@ -2428,14 +2428,14 @@ snapshots:
       '@types/node': 20.14.9
     optional: true
 
-  '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.5.3))':
+  '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@8.39.1(typescript@5.5.3))':
     dependencies:
       '@vitest/utils': 1.6.0
       magic-string: 0.30.10
       sirv: 2.0.4
       vitest: 1.6.0(@types/node@20.14.9)(@vitest/browser@1.6.0)
     optionalDependencies:
-      webdriverio: 8.39.0(typescript@5.5.3)
+      webdriverio: 8.39.1(typescript@5.5.3)
 
   '@vitest/expect@1.6.0':
     dependencies:
@@ -4344,7 +4344,7 @@ snapshots:
       why-is-node-running: 2.2.2
     optionalDependencies:
       '@types/node': 20.14.9
-      '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@8.39.0(typescript@5.5.3))
+      '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@8.39.1(typescript@5.5.3))
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -4382,7 +4382,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  webdriverio@8.39.0(typescript@5.5.3):
+  webdriverio@8.39.1(typescript@5.5.3):
     dependencies:
       '@types/node': 20.14.9
       '@wdio/config': 8.39.0
