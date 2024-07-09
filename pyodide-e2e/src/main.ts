@@ -1,8 +1,8 @@
-import type Pyodide from "pyodide";
+import type { loadPyodide as loadPyodideValue } from "pyodide";
 
 import wheelUrl from "transformers-js-py.whl"; // This is the alias from vite.config.ts
 
-declare let loadPyodide: () => Promise<Pyodide.PyodideInterface>;
+declare let loadPyodide: typeof loadPyodideValue;
 
 async function main() {
   const pyodide = await loadPyodide();
