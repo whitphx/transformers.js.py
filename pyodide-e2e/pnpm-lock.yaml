@@ -27,8 +27,8 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       pyodide:
-        specifier: ^0.26.1
-        version: 0.26.1
+        specifier: ^0.26.2
+        version: 0.26.2
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -1596,8 +1596,8 @@ packages:
     resolution: {integrity: sha512-ArbnyA3U5SGHokEvkfWjW+O8hOxV1RSJxOgriX/3A4xZRqixt9ZFHD0yPgZQF05Qj0oAqi8H/7stDorjoHY90Q==}
     engines: {node: '>=16.13.2'}
 
-  pyodide@0.26.1:
-    resolution: {integrity: sha512-P+Gm88nwZqY7uBgjbQH8CqqU6Ei/rDn7pS1t02sNZsbyLJMyE2OVXjgNuqVT3KqYWnyGREUN0DbBUCJqk8R0ew==}
+  pyodide@0.26.2:
+    resolution: {integrity: sha512-8VCRdFX83gBsWs6XP2rhG8HMaB+JaVyyav4q/EMzoV8fXH8HN6T5IISC92SNma6i1DRA3SVXA61S1rJcB8efgA==}
     engines: {node: '>=18.0.0'}
 
   query-selector-shadow-dom@1.0.1:
@@ -3780,7 +3780,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  pyodide@0.26.1:
+  pyodide@0.26.2:
     dependencies:
       ws: 8.17.0
     transitivePeerDependencies:
