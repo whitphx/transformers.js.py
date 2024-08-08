@@ -23,7 +23,7 @@ audio = ["numpy", "scipy"]
 mypy = "^1.11.1"
 types-pillow = "^10.2.0.20240520"
 numpy = "^2.0.1"
-ruff = "^0.5.6"
+ruff = "^0.5.7"
 
 [tool.ruff.lint]
 extend-select = ["I"]
