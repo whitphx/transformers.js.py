@@ -13,7 +13,7 @@ importers:
         version: 22.5.1
       '@vitest/browser':
         specifier: ^1.2.2
-        version: 1.6.0(vitest@1.6.0)(webdriverio@9.1.0)
+        version: 1.6.0(vitest@1.6.0)(webdriverio@9.1.1)
       '@xenova/transformers':
         specifier: ^2.17.2
         version: 2.17.2
@@ -39,8 +39,8 @@ importers:
         specifier: ^1.2.2
         version: 1.6.0(@types/node@22.5.1)(@vitest/browser@1.6.0)
       webdriverio:
-        specifier: ^9.1.0
-        version: 9.1.0
+        specifier: ^9.1.1
+        version: 9.1.1
 
 packages:
 
@@ -2041,12 +2041,12 @@ packages:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
 
-  webdriver@9.1.0:
-    resolution: {integrity: sha512-cdTAJ3OFyAEsQVDNqwP8f21I/xaazIotSHrLGcIgIwgfe4rzQpnpXxz2UnXQTtSjjnVmVoYOUAmYhScO02+uww==}
+  webdriver@9.1.1:
+    resolution: {integrity: sha512-XRZitu+W3xpnuA6gFgiSGBCt2P8m4g2Yzt+zXgPqlKiDGwr27F5m40pP2AnlQBlQO7hw0OJJa68QR1KW2D9cHA==}
     engines: {node: '>=18.20.0'}
 
-  webdriverio@9.1.0:
-    resolution: {integrity: sha512-6wJ7emnLhxJ3F10cUGaBjzgaabZCByAdNA59/J0Ctg/i40lOdsmHpoYVktlbXYUeOdqUC0raVLi6pngBOSqL1g==}
+  webdriverio@9.1.1:
+    resolution: {integrity: sha512-jREz3Vy7ItpNn0HG/vh5oZYAzSv4PGGy8mxht7j4BXkcUjkPCBfHtAAXHRwwJVxu1rWJLzn4QhfjLIaEFe73NA==}
     engines: {node: '>=18.20.0'}
     peerDependencies:
       puppeteer-core: ^22.3.0
@@ -2362,14 +2362,14 @@ snapshots:
       '@types/node': 22.5.1
     optional: true
 
-  '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@9.1.0)':
+  '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@9.1.1)':
     dependencies:
       '@vitest/utils': 1.6.0
       magic-string: 0.30.10
       sirv: 2.0.4
       vitest: 1.6.0(@types/node@22.5.1)(@vitest/browser@1.6.0)
     optionalDependencies:
-      webdriverio: 9.1.0
+      webdriverio: 9.1.1
 
   '@vitest/expect@1.6.0':
     dependencies:
@@ -4272,7 +4272,7 @@ snapshots:
       why-is-node-running: 2.2.2
     optionalDependencies:
       '@types/node': 22.5.1
-      '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@9.1.0)
+      '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@9.1.1)
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -4293,7 +4293,7 @@ snapshots:
 
   web-streams-polyfill@3.3.3: {}
 
-  webdriver@9.1.0:
+  webdriver@9.1.1:
     dependencies:
       '@types/node': 20.14.12
       '@types/ws': 8.5.10
@@ -4309,7 +4309,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  webdriverio@9.1.0:
+  webdriverio@9.1.1:
     dependencies:
       '@types/node': 20.14.12
       '@types/sinonjs__fake-timers': 8.1.5
@@ -4337,7 +4337,7 @@ snapshots:
       rgb2hex: 0.2.5
       serialize-error: 11.0.3
       urlpattern-polyfill: 10.0.0
-      webdriver: 9.1.0
+      webdriver: 9.1.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
