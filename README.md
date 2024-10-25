@@ -263,6 +263,8 @@ app = App(app_ui, server, debug=True)
 
 ### Panel
 
+[![py.cafe](https://py.cafe/badge.svg)](https://py.cafe/awesome.panel.org/transformers-sentiment-analysis)
+
 With [HoloViz Panel](https://panel.holoviz.org) you develop your app on your laptop and convert it to [Pyodide](https://pyodide.org/en/stable/) or [PyScript](https://pyscript.net/) by running [`panel convert`](https://panel.holoviz.org/how_to/wasm/convert.html).
 
 ![HoloViz Panel Transformers App](docs/images/Panel.png)
@@ -318,6 +320,8 @@ Finally you can try out the app by opening [localhost:8000/app.html](http://loca
 
 <details>
     <summary><h4>Panel Chat App Example</h4></summary>
+
+[![py.cafe](https://py.cafe/badge.svg)](https://py.cafe/awesome.panel.org/transformers-sentiment-chat)
 
 You can also use `transformers_js_py` with [Panels Chat Components](https://panel.holoviz.org/reference/index.html#chat).
 
