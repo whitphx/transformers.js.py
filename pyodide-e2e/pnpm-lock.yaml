@@ -13,7 +13,7 @@ importers:
         version: 22.5.1
       '@vitest/browser':
         specifier: ^1.2.2
-        version: 1.6.0(vitest@1.6.0)(webdriverio@9.3.1)
+        version: 1.6.0(vitest@1.6.0)(webdriverio@9.4.1)
       '@xenova/transformers':
         specifier: ^2.17.2
         version: 2.17.2
@@ -39,8 +39,8 @@ importers:
         specifier: ^1.2.2
         version: 1.6.0(@types/node@22.5.1)(@vitest/browser@1.6.0)
       webdriverio:
-        specifier: ^9.3.1
-        version: 9.3.1
+        specifier: ^9.4.1
+        version: 9.4.1
 
 packages:
 
@@ -1960,6 +1960,10 @@ packages:
     resolution: {integrity: sha512-HR3W/bMGPSr90i8AAp2C4DM3wChFdJPLrWYpIS++LxS8K+W535qftjt+4MyjNYHeWabMj1nvtmLIi7l++iq91A==}
     engines: {node: '>=18.17'}
 
+  undici@6.21.0:
+    resolution: {integrity: sha512-BUgJXc752Kou3oOIuU1i+yZZypyZRqNPW0vqoMPl8VaoalSfeR0D8/t4iAS3yirs79SSMTxTag+ZC86uswv+Cw==}
+    engines: {node: '>=18.17'}
+
   universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
@@ -2047,12 +2051,12 @@ packages:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
 
-  webdriver@9.3.1:
-    resolution: {integrity: sha512-mvFbt+ixaMdN0lz3rRMlVvvHT/W4W394gDfP9E1UHZFvLxVhxqkvEho3D5OtF2fb+VoaYDdOOGHb+jqBe4X4iQ==}
+  webdriver@9.4.1:
+    resolution: {integrity: sha512-vFDdxMj/9W1+6jhpHSiRYfO8dix23HjAUtLx7aOv9ejEsntC0EzCIAftJ59YsF3Ppu184+FkdDVhnivpkZPTFw==}
     engines: {node: '>=18.20.0'}
 
-  webdriverio@9.3.1:
-    resolution: {integrity: sha512-WfHKKVxtCMw2TMi90OYmZYqGt2razBaKZtZ8h40qvBQYCwd+TuJ0qCbENA6YQR7XYnPVKuiefZZwumu5NRfo0w==}
+  webdriverio@9.4.1:
+    resolution: {integrity: sha512-XIPtRnxSES4CoxH2BfUY/6QzNgEgJEUjMYu7t7SJR8bVfbLRVXAA1ie9kM0MtdLs4oZ2Pr8rR8fqytsA1CjEWw==}
     engines: {node: '>=18.20.0'}
     peerDependencies:
       puppeteer-core: ^22.3.0
@@ -2370,14 +2374,14 @@ snapshots:
       '@types/node': 22.5.1
     optional: true
 
-  '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@9.3.1)':
+  '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@9.4.1)':
     dependencies:
       '@vitest/utils': 1.6.0
       magic-string: 0.30.10
       sirv: 2.0.4
       vitest: 1.6.0(@types/node@22.5.1)(@vitest/browser@1.6.0)
     optionalDependencies:
-      webdriverio: 9.3.1
+      webdriverio: 9.4.1
 
   '@vitest/expect@1.6.0':
     dependencies:
@@ -4218,6 +4222,8 @@ snapshots:
 
   undici@6.19.7: {}
 
+  undici@6.21.0: {}
+
   universalify@2.0.1: {}
 
   urlpattern-polyfill@10.0.0: {}
@@ -4282,7 +4288,7 @@ snapshots:
       why-is-node-running: 2.2.2
     optionalDependencies:
       '@types/node': 22.5.1
-      '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@9.3.1)
+      '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@9.4.1)
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -4303,7 +4309,7 @@ snapshots:
 
   web-streams-polyfill@3.3.3: {}
 
-  webdriver@9.3.1:
+  webdriver@9.4.1:
     dependencies:
       '@types/node': 20.14.12
       '@types/ws': 8.5.10
@@ -4313,13 +4319,14 @@ snapshots:
       '@wdio/types': 9.2.2
       '@wdio/utils': 9.2.8
       deepmerge-ts: 7.1.0
+      undici: 6.21.0
       ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  webdriverio@9.3.1:
+  webdriverio@9.4.1:
     dependencies:
       '@types/node': 20.14.12
       '@types/sinonjs__fake-timers': 8.1.5
@@ -4347,7 +4354,7 @@ snapshots:
       rgb2hex: 0.2.5
       serialize-error: 11.0.3
       urlpattern-polyfill: 10.0.0
-      webdriver: 9.3.1
+      webdriver: 9.4.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
