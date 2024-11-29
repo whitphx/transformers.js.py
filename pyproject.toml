@@ -1,6 +1,6 @@
 [project]
 name = "transformers-js-py"
-version = "0.19.0"
+version = "0.19.2"
 description = ""
 authors = [
     {name = "Yuichiro Tachibana (Tsuchiya)", email = "t.yic.yt@gmail.com"},
@@ -61,6 +61,11 @@ commit_args = ""
 setup_hooks = []
 pre_commit_hooks = []
 post_commit_hooks = []
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+search = 'version = "{current_version}"'
+replace = 'version = "{new_version}"'
 
 [build-system]
 requires = ["hatchling"]
