@@ -1,29 +1,23 @@
-[tool.poetry]
+[project]
 name = "transformers-js-py"
 version = "0.19.0"
 description = ""
-authors = ["Yuichiro Tachibana (Tsuchiya) <t.yic.yt@gmail.com>"]
-license = "Apache-2.0"
-readme = "README.md"
-packages = [
-    {include = "transformers_js_py"},
-    {include = "transformers_js"},
+authors = [
+    {name = "Yuichiro Tachibana (Tsuchiya)", email = "t.yic.yt@gmail.com"},
 ]
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.urls]
 repository = "https://github.com/whitphx/transformers.js.py"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-numpy = { version = "^2.1.2", optional = true }
-scipy = { version = "^1.14.0", optional = true }
-
-[tool.poetry.extras]
-audio = ["numpy", "scipy"]
-
-[tool.poetry.group.dev.dependencies]
-mypy = "^1.13.0"
-types-pillow = "^10.2.0.20240520"
-numpy = "^2.1.2"
-ruff = "^0.8.0"
+[project.optional-dependencies]
+audio = [
+    "numpy>=2.1.2",
+    "scipy>=1.14.0",
+]
 
 [tool.ruff.lint]
 extend-select = ["I"]
@@ -38,6 +32,14 @@ module = [
 ]
 ignore_missing_imports = true
 
+[tool.uv]
+dev-dependencies = [
+    "mypy>=1.13.0",
+    "numpy>=2.1.3",
+    "ruff>=0.8.1",
+    "types-pillow>=10.2.0.20240822",
+]
+
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
