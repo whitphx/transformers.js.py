@@ -6,7 +6,7 @@ import { exec } from "child_process";
 const getTransformersJsPyVersion = (): Promise<string> =>
   new Promise((resolve, reject) => {
     exec(
-      "poetry version -s",
+      `python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])"`,
       {
         cwd: path.resolve(__dirname, ".."),
       },
