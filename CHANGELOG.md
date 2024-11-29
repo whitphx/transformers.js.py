@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.19.2] - 2024-11-29
+## [0.19.3] - 2024-11-29
 
 ### Fix
 
 - Internal package updates.
+
+## [0.19.2]
+
+Skipped.
 
 ## [0.19.1]
 
