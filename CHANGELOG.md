@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.19.0] - 2024-11-29
+
+### Changed
+
+- Support Transformers.js v3 and make it default, [#336](https://github.com/whitphx/transformers.js.py/pull/336).
+
+
 ## [0.18.1] - 2024-06-06
 
 ### Fixed
