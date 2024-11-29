@@ -65,3 +65,8 @@ post_commit_hooks = []
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build]
+exclude = [
+    "/pyodide-e2e",
+]
