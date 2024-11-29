@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@types/node':
-        specifier: ^22.5.1
-        version: 22.5.1
+        specifier: ^22.10.1
+        version: 22.10.1
       '@vitest/browser':
         specifier: ^1.2.2
         version: 1.6.0(vitest@1.6.0)(webdriverio@9.4.1)
@@ -34,10 +34,10 @@ importers:
         version: 5.7.2
       vite:
         specifier: ^5.4.11
-        version: 5.4.11(@types/node@22.5.1)
+        version: 5.4.11(@types/node@22.10.1)
       vitest:
         specifier: ^1.2.2
-        version: 1.6.0(@types/node@22.5.1)(@vitest/browser@1.6.0)
+        version: 1.6.0(@types/node@22.10.1)(@vitest/browser@1.6.0)
       webdriverio:
         specifier: ^9.4.1
         version: 9.4.1
@@ -340,8 +340,8 @@ packages:
   '@types/node@20.14.12':
     resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==}
 
-  '@types/node@22.5.1':
-    resolution: {integrity: sha512-KkHsxej0j9IW1KKOOAA/XBA0z08UFSrRQHErzEfA3Vgq57eXIMYboIlHJuYIfd+lwCQjtKqUu3UnmKbtUc9yRw==}
+  '@types/node@22.10.1':
+    resolution: {integrity: sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==}
 
   '@types/sinonjs__fake-timers@8.1.5':
     resolution: {integrity: sha512-mQkU2jY8jJEF7YHjHvsQO8+3ughTL1mcnn96igfhONmR+fUPSKIkefQYpSe8bsly2Ep7oQbn/6VG5/9/0qcArQ==}
@@ -1953,8 +1953,8 @@ packages:
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
-  undici-types@6.19.8:
-    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
 
   undici@6.19.7:
     resolution: {integrity: sha512-HR3W/bMGPSr90i8AAp2C4DM3wChFdJPLrWYpIS++LxS8K+W535qftjt+4MyjNYHeWabMj1nvtmLIi7l++iq91A==}
@@ -2357,9 +2357,9 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@22.5.1':
+  '@types/node@22.10.1':
     dependencies:
-      undici-types: 6.19.8
+      undici-types: 6.20.0
 
   '@types/sinonjs__fake-timers@8.1.5': {}
 
@@ -2367,11 +2367,11 @@ snapshots:
 
   '@types/ws@8.5.10':
     dependencies:
-      '@types/node': 22.5.1
+      '@types/node': 22.10.1
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.5.1
+      '@types/node': 22.10.1
     optional: true
 
   '@vitest/browser@1.6.0(vitest@1.6.0)(webdriverio@9.4.1)':
@@ -2379,7 +2379,7 @@ snapshots:
       '@vitest/utils': 1.6.0
       magic-string: 0.30.10
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@22.5.1)(@vitest/browser@1.6.0)
+      vitest: 1.6.0(@types/node@22.10.1)(@vitest/browser@1.6.0)
     optionalDependencies:
       webdriverio: 9.4.1
 
@@ -3740,7 +3740,7 @@ snapshots:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/long': 4.0.2
-      '@types/node': 22.5.1
+      '@types/node': 22.10.1
       long: 4.0.0
 
   proxy-agent@6.4.0:
@@ -4218,7 +4218,7 @@ snapshots:
 
   undici-types@5.26.5: {}
 
-  undici-types@6.19.8: {}
+  undici-types@6.20.0: {}
 
   undici@6.19.7: {}
 
@@ -4237,13 +4237,13 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  vite-node@1.6.0(@types/node@22.5.1):
+  vite-node@1.6.0(@types/node@22.10.1):
     dependencies:
       cac: 6.7.14
       debug: 4.3.5
       pathe: 1.1.2
       picocolors: 1.0.1
-      vite: 5.4.11(@types/node@22.5.1)
+      vite: 5.4.11(@types/node@22.10.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -4255,16 +4255,16 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.11(@types/node@22.5.1):
+  vite@5.4.11(@types/node@22.10.1):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
       rollup: 4.24.0
     optionalDependencies:
-      '@types/node': 22.5.1
+      '@types/node': 22.10.1
       fsevents: 2.3.3
 
-  vitest@1.6.0(@types/node@22.5.1)(@vitest/browser@1.6.0):
+  vitest@1.6.0(@types/node@22.10.1)(@vitest/browser@1.6.0):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
@@ -4283,11 +4283,11 @@ snapshots:
       strip-literal: 2.1.0
       tinybench: 2.8.0
       tinypool: 0.8.4
-      vite: 5.4.11(@types/node@22.5.1)
-      vite-node: 1.6.0(@types/node@22.5.1)
+      vite: 5.4.11(@types/node@22.10.1)
+      vite-node: 1.6.0(@types/node@22.10.1)
       why-is-node-running: 2.2.2
     optionalDependencies:
-      '@types/node': 22.5.1
+      '@types/node': 22.10.1
       '@vitest/browser': 1.6.0(vitest@1.6.0)(webdriverio@9.4.1)
     transitivePeerDependencies:
       - less
