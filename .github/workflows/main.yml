@@ -20,8 +20,10 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Set up Python
-        run: uv python install
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
 
       - name: Install the project
         run: uv sync --all-extras --dev
@@ -65,8 +67,10 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Set up Python
-        run: uv python install
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
 
       - name: Install the project
         run: uv sync --all-extras --dev
@@ -103,8 +107,10 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Set up Python
-        run: uv python install
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
 
       - uses: actions/download-artifact@v4
         with:
