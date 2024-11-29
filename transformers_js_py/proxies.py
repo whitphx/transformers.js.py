@@ -242,7 +242,9 @@ async def import_transformers_js(version_or_url: str = "latest"):
                 return new URL(versionOrUrl);
             } catch {
                 const version = versionOrUrl;
-                return new URL('https://cdn.jsdelivr.net/npm/@xenova/transformers@' + version);
+                const v3 = version === "latest" || version.startsWith("3.");
+                const packageName = v3 ? '@huggingface/transformers' : '@xenova/transformers';
+                return new URL(`https://cdn.jsdelivr.net/npm/${packageName}@${version}`);
             }
         }
 
