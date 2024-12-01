@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.19.4] - 2024-12-01
+
+### Fix
+
+- Include the `transformers_js` package as well, [#340](https://github.com/whitphx/transformers.js.py/pull/340).
+
 ## [0.19.3] - 2024-11-29
 
 ### Fix
