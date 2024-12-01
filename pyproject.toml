@@ -75,3 +75,9 @@ build-backend = "hatchling.build"
 exclude = [
     "/pyodide-e2e",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "src/transformers_js_py",
+    "src/transformers_js",
+]
