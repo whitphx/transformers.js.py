@@ -22,7 +22,7 @@
     "prettier": "3.4.1",
     "pyodide": "^0.26.4",
     "typescript": "^5.7.2",
-    "vite": "^6.0.1",
+    "vite": "^6.0.2",
     "vitest": "^1.2.2",
     "webdriverio": "^9.4.1"
   }
