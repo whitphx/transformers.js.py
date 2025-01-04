@@ -36,6 +36,7 @@ class TjsModuleProxy:
     def __getattr__(self, name: str) -> Any:
         res = getattr(self.js_obj, name)
         if isinstance(res, pyodide.ffi.JsProxy):
+            # Pass the module instance for proper type checking
             return proxy_tjs_object(res, self.js_obj)
         return res
 
@@ -238,7 +239,10 @@ def to_py_default_converter(value: pyodide.ffi.JsProxy, _ignored1, _ignored2):
 def wrap_or_unwrap_proxy_object(obj, tjs_module: pyodide.ffi.JsProxy | None = None):
     if isinstance(obj, pyodide.ffi.JsProxy):
         if obj.typeof == "object":
-            return obj.to_py(default_converter=to_py_default_converter)
+            # Ensure we use the same module instance for type checking in the converter
+            return obj.to_py(
+                default_converter=lambda x, *_: proxy_tjs_object(x, tjs_module)
+            )
 
         return proxy_tjs_object(obj, tjs_module)
     elif isinstance(obj, pyodide.webloop.PyodideFuture):
