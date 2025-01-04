@@ -1,6 +1,6 @@
 import re
 from collections.abc import Mapping
-from typing import Any, Awaitable, Dict, Union
+from typing import Any, Awaitable, Union
 
 import js
 import pyodide.code
