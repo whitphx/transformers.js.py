@@ -1,4 +1,5 @@
 import re
+import sys
 from collections.abc import Mapping
 from typing import Any, Awaitable, Union
 
@@ -8,6 +9,14 @@ import pyodide.ffi
 import pyodide.webloop
 
 from .url import as_url, is_url
+
+# Debug logging configuration
+DEBUG = True
+
+def debug_log(msg: str) -> None:
+    """Print debug messages to stderr if DEBUG is enabled."""
+    if DEBUG:
+        print(msg, file=sys.stderr, flush=True)
 
 try:
     import numpy as np
@@ -306,12 +315,29 @@ async def import_transformers_js(version_or_url: str = "latest"):
     """  # noqa: E501
     )
 
-    # Load new instance
-    new_module = await loadTransformersJsFn(version_or_url)
-    _TRANSFORMERS_JS_INSTANCES[version_or_url] = new_module
+    try:
+        # Load new instance
+        debug_log(f"Loading module for version: {version_or_url}")
+        new_module = await loadTransformersJsFn(version_or_url)
+        debug_log("Module loaded successfully")
 
-    # Update global reference for backward compatibility
-    global _TRANSFORMERS_JS
-    _TRANSFORMERS_JS = new_module
+        # Create module proxy first to ensure proper initialization
+        debug_log("Creating module proxy")
+        module_proxy = TjsModuleProxy(new_module)
+        debug_log("Module proxy created")
 
-    return TjsModuleProxy(new_module)
+        # Update global reference for backward compatibility
+        debug_log("Updating global reference")
+        global _TRANSFORMERS_JS
+        _TRANSFORMERS_JS = new_module
+        debug_log("Global reference updated")
+
+        # Cache the instance
+        debug_log("Caching module instance")
+        _TRANSFORMERS_JS_INSTANCES[version_or_url] = new_module
+        debug_log("Module instance cached")
+
+        return module_proxy
+    except Exception as e:
+        debug_log(f"Error in import_transformers_js: {str(e)}")
+        raise

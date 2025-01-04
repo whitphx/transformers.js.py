@@ -31,13 +31,24 @@ describe("Global state tests for proxies.py", () => {
 
   it("verifies global _TRANSFORMERS_JS remains backward-compatible", async () => {
     await pyodide.runPythonAsync(`
+      import sys
       from transformers_js_py import import_transformers_js, _TRANSFORMERS_JS
 
-      # Import a new version
-      transformers_new = await import_transformers_js("3.1.0")
-
-      # Verify the global reference now points to the newly imported version
-      global_version = _TRANSFORMERS_JS.env.version
+      try:
+          print("Starting module import...", file=sys.stderr)
+          transformers_new = await import_transformers_js("3.1.0")
+          print("Module import completed", file=sys.stderr)
+          
+          print("Verifying module proxy...", file=sys.stderr)
+          assert hasattr(transformers_new, "env"), "Module proxy should have env attribute"
+          print("Module proxy verified", file=sys.stderr)
+          
+          print("Checking global reference...", file=sys.stderr)
+          global_version = _TRANSFORMERS_JS.env.version
+          print(f"Global version: {global_version}", file=sys.stderr)
+      except Exception as e:
+          print(f"Error occurred: {str(e)}", file=sys.stderr)
+          raise
     `);
     const globalVersion = await pyodide.globals.get("global_version");
     expect(globalVersion).toBe("3.1.0");
