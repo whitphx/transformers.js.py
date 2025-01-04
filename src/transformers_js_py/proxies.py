@@ -28,14 +28,16 @@ rx_class_def_code = re.compile(r"^\s*class\s+([a-zA-Z0-9_]+)\s*{", re.MULTILINE)
 
 
 class TjsModuleProxy:
-    _instances: Dict[pyodide.ffi.JsProxy, "TjsModuleProxy"] = {}
+    # Use JavaScript WeakMap to store the mapping between JS objects and their Python proxies
+    _instances_map = js.globalThis.WeakMap.new()
 
     def __new__(cls, js_obj: pyodide.ffi.JsProxy) -> "TjsModuleProxy":
         # Ensure we return the same proxy instance for the same JS object
-        if js_obj in cls._instances:
-            return cls._instances[js_obj]
+        existing = cls._instances_map.get(js_obj)
+        if existing is not None:
+            return existing
         instance = super().__new__(cls)
-        cls._instances[js_obj] = instance
+        cls._instances_map.set(js_obj, instance)
         return instance
 
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
