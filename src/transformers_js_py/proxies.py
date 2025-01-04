@@ -13,10 +13,12 @@ from .url import as_url, is_url
 # Debug logging configuration
 DEBUG = True
 
+
 def debug_log(msg: str) -> None:
     """Print debug messages to stderr if DEBUG is enabled."""
     if DEBUG:
         print(msg, file=sys.stderr, flush=True)
+
 
 try:
     import numpy as np
