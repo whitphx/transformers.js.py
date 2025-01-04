@@ -52,7 +52,8 @@ class TjsModuleProxy:
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
         if not isinstance(js_obj, pyodide.ffi.JsProxy) or js_obj.typeof != "object":
             raise TypeError("js_obj must be a JS module object")
-        if not hasattr(self, "js_obj"):  # Only set if not already initialized
+        # Use __dict__ to check for attribute existence without triggering __getattr__
+        if "js_obj" not in self.__dict__:  # Only set if not already initialized
             self.js_obj = js_obj
 
     def __getattr__(self, name: str) -> Any:
