@@ -20,7 +20,8 @@ except ImportError:
     PILImage = None  # type: ignore
 
 
-_TRANSFORMERS_JS = None
+_TRANSFORMERS_JS_INSTANCES: dict[str, pyodide.ffi.JsProxy] = {}
+_TRANSFORMERS_JS: pyodide.ffi.JsProxy | None = None  # For backward compatibility
 
 
 rx_class_def_code = re.compile(r"^\s*class\s+([a-zA-Z0-9_]+)\s*{", re.MULTILINE)
@@ -35,7 +36,7 @@ class TjsModuleProxy:
     def __getattr__(self, name: str) -> Any:
         res = getattr(self.js_obj, name)
         if isinstance(res, pyodide.ffi.JsProxy):
-            return proxy_tjs_object(res)
+            return proxy_tjs_object(res, self.js_obj)
         return res
 
     def __repr__(self) -> str:
@@ -195,21 +196,30 @@ class TjsTensorProxy(TjsProxy):
         return np.asarray(data, dtype=dtype).reshape(dims)
 
 
-def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy):
+def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy, tjs_module: pyodide.ffi.JsProxy | None = None):
     """A factory function that wraps a JsProxy object wrapping a Transformers.js object
-    into a Python object of type TjsProxy or is subclass in the case of a special object
+    into a Python object of type TjsProxy or its subclass in the case of a special object
     such as RawImage.
+
+    Args:
+        js_obj: The JavaScript object to wrap.
+        tjs_module: The Transformers.js module instance to use for type checking.
+                   If None, uses the latest imported instance.
+
+    Returns:
+        A proxy object wrapping the JavaScript object.
     """
-    if _TRANSFORMERS_JS is None:
+    module = tjs_module if tjs_module is not None else _TRANSFORMERS_JS
+    if module is None:
         raise RuntimeError(
             "transformers_js_py.import_transformers_js() must be called first"
         )
 
-    if js_obj == _TRANSFORMERS_JS.RawImage:
+    if js_obj == module.RawImage:
         return TjsRawImageClassProxy(js_obj)
-    if js_obj.constructor == _TRANSFORMERS_JS.RawImage:
+    if js_obj.constructor == module.RawImage:
         return TjsRawImageProxy(js_obj)
-    if js_obj.constructor == _TRANSFORMERS_JS.Tensor:
+    if js_obj.constructor == module.Tensor:
         return TjsTensorProxy(js_obj)
     return TjsProxy(js_obj)
 
@@ -219,21 +229,35 @@ def to_py_default_converter(value: pyodide.ffi.JsProxy, _ignored1, _ignored2):
     # as best as possible, but it doesn't always work.
     # In such a case, this custom converter is called
     # and it wraps the JS object into a TjsProxy object.
-    return proxy_tjs_object(value)
+    # Note: Uses the latest imported module for backward compatibility
+    return proxy_tjs_object(value, None)
 
 
-def wrap_or_unwrap_proxy_object(obj):
+def wrap_or_unwrap_proxy_object(obj, tjs_module: pyodide.ffi.JsProxy | None = None):
     if isinstance(obj, pyodide.ffi.JsProxy):
         if obj.typeof == "object":
             return obj.to_py(default_converter=to_py_default_converter)
 
-        return proxy_tjs_object(obj)
+        return proxy_tjs_object(obj, tjs_module)
     elif isinstance(obj, pyodide.webloop.PyodideFuture):
-        return obj.then(wrap_or_unwrap_proxy_object)
+        return obj.then(lambda x: wrap_or_unwrap_proxy_object(x, tjs_module))
     return obj
 
 
 async def import_transformers_js(version_or_url: str = "latest"):
+    """Import Transformers.js module.
+    
+    Args:
+        version_or_url: Version string or URL of Transformers.js to import.
+                       If "latest", imports the latest version.
+                       
+    Returns:
+        TjsModuleProxy: A proxy object wrapping the imported Transformers.js module.
+    """
+    # If we already have a cached instance, return it
+    if version_or_url in _TRANSFORMERS_JS_INSTANCES:
+        return TjsModuleProxy(_TRANSFORMERS_JS_INSTANCES[version_or_url])
+
     loadTransformersJsFn = pyodide.code.run_js(
         """
     async (versionOrUrl) => {
@@ -262,6 +286,13 @@ async def import_transformers_js(version_or_url: str = "latest"):
     }
     """  # noqa: E501
     )
+    
+    # Load new instance
+    new_module = await loadTransformersJsFn(version_or_url)
+    _TRANSFORMERS_JS_INSTANCES[version_or_url] = new_module
+    
+    # Update global reference for backward compatibility
     global _TRANSFORMERS_JS
-    _TRANSFORMERS_JS = await loadTransformersJsFn(version_or_url)
-    return TjsModuleProxy(_TRANSFORMERS_JS)
+    _TRANSFORMERS_JS = new_module
+    
+    return TjsModuleProxy(new_module)
