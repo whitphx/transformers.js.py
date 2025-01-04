@@ -196,7 +196,9 @@ class TjsTensorProxy(TjsProxy):
         return np.asarray(data, dtype=dtype).reshape(dims)
 
 
-def proxy_tjs_object(js_obj: pyodide.ffi.JsProxy, tjs_module: pyodide.ffi.JsProxy | None = None):
+def proxy_tjs_object(
+    js_obj: pyodide.ffi.JsProxy, tjs_module: pyodide.ffi.JsProxy | None = None
+):
     """A factory function that wraps a JsProxy object wrapping a Transformers.js object
     into a Python object of type TjsProxy or its subclass in the case of a special object
     such as RawImage.
@@ -246,11 +248,11 @@ def wrap_or_unwrap_proxy_object(obj, tjs_module: pyodide.ffi.JsProxy | None = No
 
 async def import_transformers_js(version_or_url: str = "latest"):
     """Import Transformers.js module.
-    
+
     Args:
         version_or_url: Version string or URL of Transformers.js to import.
                        If "latest", imports the latest version.
-                       
+
     Returns:
         TjsModuleProxy: A proxy object wrapping the imported Transformers.js module.
     """
@@ -286,13 +288,13 @@ async def import_transformers_js(version_or_url: str = "latest"):
     }
     """  # noqa: E501
     )
-    
+
     # Load new instance
     new_module = await loadTransformersJsFn(version_or_url)
     _TRANSFORMERS_JS_INSTANCES[version_or_url] = new_module
-    
+
     # Update global reference for backward compatibility
     global _TRANSFORMERS_JS
     _TRANSFORMERS_JS = new_module
-    
+
     return TjsModuleProxy(new_module)
