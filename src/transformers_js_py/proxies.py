@@ -1,6 +1,6 @@
 import re
 from collections.abc import Mapping
-from typing import Any, Awaitable, Union
+from typing import Any, Awaitable, Dict, Union
 
 import js
 import pyodide.code
@@ -28,10 +28,21 @@ rx_class_def_code = re.compile(r"^\s*class\s+([a-zA-Z0-9_]+)\s*{", re.MULTILINE)
 
 
 class TjsModuleProxy:
+    _instances: Dict[pyodide.ffi.JsProxy, "TjsModuleProxy"] = {}
+
+    def __new__(cls, js_obj: pyodide.ffi.JsProxy) -> "TjsModuleProxy":
+        # Ensure we return the same proxy instance for the same JS object
+        if js_obj in cls._instances:
+            return cls._instances[js_obj]
+        instance = super().__new__(cls)
+        cls._instances[js_obj] = instance
+        return instance
+
     def __init__(self, js_obj: pyodide.ffi.JsProxy):
         if not isinstance(js_obj, pyodide.ffi.JsProxy) or js_obj.typeof != "object":
             raise TypeError("js_obj must be a JS module object")
-        self.js_obj = js_obj
+        if not hasattr(self, "js_obj"):  # Only set if not already initialized
+            self.js_obj = js_obj
 
     def __getattr__(self, name: str) -> Any:
         res = getattr(self.js_obj, name)

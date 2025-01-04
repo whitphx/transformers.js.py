@@ -6,7 +6,7 @@ import wheelUrl from "transformers-js-py.whl"; // This is the alias from vite.co
 export const IS_NODE = typeof window === "undefined";
 
 export async function setupPyodideForTest(
-  requirements: string[] = [],
+  requirements: string[] = ["numpy"],
 ): Promise<PyodideInterface> {
   const pyodide = await loadPyodide({
     indexURL: IS_NODE
