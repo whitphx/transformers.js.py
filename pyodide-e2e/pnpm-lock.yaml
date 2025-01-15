@@ -27,8 +27,8 @@ importers:
         specifier: 3.4.1
         version: 3.4.1
       pyodide:
-        specifier: ^0.26.4
-        version: 0.26.4
+        specifier: ^0.27.1
+        version: 0.27.1
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -1729,8 +1729,8 @@ packages:
   pump@3.0.0:
     resolution: {integrity: sha512-LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==}
 
-  pyodide@0.26.4:
-    resolution: {integrity: sha512-z2CHsjVlhhJi5tYBF0AYAfNEPo3zq/z+xOpFtk1tweJkRaTqU4UK/7pLvo8DBU2VDPH31vB3pSI+8fnoqrVrFg==}
+  pyodide@0.27.1:
+    resolution: {integrity: sha512-pVLXy+rZAtUG+AOZSl5Bluuuuk/BlfhsCoR9XngtdObV399f/tXZAbzL6peoWFBIekSL2CLBeRtRumh/RvSDww==}
     engines: {node: '>=18.0.0'}
 
   query-selector-shadow-dom@1.0.1:
@@ -4061,7 +4061,7 @@ snapshots:
       end-of-stream: 1.4.4
       once: 1.4.0
 
-  pyodide@0.26.4:
+  pyodide@0.27.1:
     dependencies:
       ws: 8.18.0
     transitivePeerDependencies:
