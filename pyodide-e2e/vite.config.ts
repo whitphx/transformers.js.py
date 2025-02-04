@@ -60,8 +60,8 @@ export default defineConfig(async () => {
       testTimeout: 60 * 1000,
       hookTimeout: 60 * 1000,
       browser: {
-        provider: 'playwright',
-        name: 'chromium',
+        provider: "playwright",
+        name: "chromium",
         enabled: true,
         headless: true,
       },
