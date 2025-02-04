@@ -86,6 +86,9 @@ jobs:
           run_install: |
             cwd: pyodide-e2e
 
+      - run: pnpm exec playwright install --with-deps
+        working-directory: pyodide-e2e
+
       - run: pnpm test
         working-directory: pyodide-e2e
 
