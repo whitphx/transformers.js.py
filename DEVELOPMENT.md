@@ -10,7 +10,7 @@ Open the page in a browser and open the developer console.
 ## Release
 
 ```
-bump-my-version bump
+bump-my-version bump <version>
 git push
 git push --tags
 ```
