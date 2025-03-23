@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.19.5] - 2025-03-23
+
+### Fix
+
+- Fix the CI/CD pipeline to use Trusted Publisher for PyPI, [#399](https://github.com/whitphx/transformers.js.py/pull/399).
+
 ## [0.19.4] - 2024-12-01
 
 ### Fix
