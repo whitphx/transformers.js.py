@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+## [0.19.7] - 2025-03-23
+
+- Set the package version dynamically, [#400](https://github.com/whitphx/transformers.js.py/pull/400).
+- Update CI/CD pipeline, [#402](https://github.com/whitphx/transformers.js.py/pull/402), [#403](https://github.com/whitphx/transformers.js.py/pull/403).
+
 ## [0.19.6] - 2025-03-23
 
-### Fix
+### Fixed
 
 - Fix the CI/CD pipeline to use Trusted Publisher for PyPI, [#399](https://github.com/whitphx/transformers.js.py/pull/399), [#401](https://github.com/whitphx/transformers.js.py/pull/401).
 
@@ -19,13 +26,13 @@ Skipped.
 
 ## [0.19.4] - 2024-12-01
 
-### Fix
+### Fixed
 
 - Include the `transformers_js` package as well, [#340](https://github.com/whitphx/transformers.js.py/pull/340).
 
 ## [0.19.3] - 2024-11-29
 
-### Fix
+### Fixed
 
 - Internal package updates.
 
