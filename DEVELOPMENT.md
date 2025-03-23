@@ -10,7 +10,7 @@ Open the page in a browser and open the developer console.
 ## Release
 
 ```
-bump-my-version bump <version>
+bump-my-version bump <version> --tag --commit --commit-args='--allow-empty'
 git push
 git push --tags
 ```
