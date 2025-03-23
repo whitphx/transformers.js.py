@@ -6,7 +6,7 @@ import { exec } from "child_process";
 const getTransformersJsPyVersion = (): Promise<string> =>
   new Promise((resolve, reject) => {
     exec(
-      `uv run hatch version`,
+      `uvx hatch version`,
       {
         cwd: path.resolve(__dirname, ".."),
       },
