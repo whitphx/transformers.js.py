@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+## [0.19.8] - 2025-03-23
 
-## [0.19.7] - 2025-03-23
+### Fixed
 
 - Set the package version dynamically, [#400](https://github.com/whitphx/transformers.js.py/pull/400).
 - Update CI/CD pipeline, [#402](https://github.com/whitphx/transformers.js.py/pull/402), [#403](https://github.com/whitphx/transformers.js.py/pull/403).
+
+## [0.19.7]
+
+Skipped.
 
 ## [0.19.6] - 2025-03-23
 
