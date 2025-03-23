@@ -46,7 +46,6 @@ jobs:
           path: dist
 
   test-pyodide-e2e:
-    if: ${{ !failure() }}  # `!failure()` is necessary to avoid skipping this job after successful build: https://github.com/actions/runner/issues/491
     needs: [test-and-build]
 
     runs-on: ubuntu-latest
