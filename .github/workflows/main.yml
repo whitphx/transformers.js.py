@@ -111,7 +111,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: >-
-            pages deploy ${{ runner.temp }}/artifacts/transformers_js_py --project-name=transformers_js_py-preview --branch=${{ github.head_ref || github.ref_name }} --commit-hash=${{ github.sha }}
+            pages deploy ${{ runner.temp }}/artifacts/transformers_js_py --project-name=transformers-js-py-preview --branch=${{ github.head_ref || github.ref_name }} --commit-hash=${{ github.sha }}
 
       - name: Comment on the PR to inform the deployment file URLs
         uses: actions/github-script@v7
