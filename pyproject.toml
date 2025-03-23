@@ -1,6 +1,5 @@
 [project]
 name = "transformers-js-py"
-version = "0.19.5"
 description = ""
 authors = [
     {name = "Yuichiro Tachibana (Tsuchiya)", email = "t.yic.yt@gmail.com"},
@@ -8,6 +7,7 @@ authors = [
 license = {text = "Apache-2.0"}
 readme = "README.md"
 requires-python = ">=3.10"
+dynamic = ["version"]
 dependencies = []
 
 [project.urls]
@@ -68,8 +68,11 @@ search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
 
 [tool.hatch.build]
 exclude = [
