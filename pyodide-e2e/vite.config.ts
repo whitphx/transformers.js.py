@@ -6,7 +6,7 @@ import { exec } from "child_process";
 const getTransformersJsPyVersion = (): Promise<string> =>
   new Promise((resolve, reject) => {
     exec(
-      `python -c "import importlib.metadata; print(importlib.metadata.version('transformers_js_py'))"`,
+      `uv run hatch version`,
       {
         cwd: path.resolve(__dirname, ".."),
       },
