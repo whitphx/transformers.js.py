@@ -1,6 +1,6 @@
 [project]
 name = "transformers-js-py"
-version = "0.19.4"
+version = "0.19.5"
 description = ""
 authors = [
     {name = "Yuichiro Tachibana (Tsuchiya)", email = "t.yic.yt@gmail.com"},
@@ -42,7 +42,7 @@ dev-dependencies = [
 ]
 
 [tool.bumpversion]
-current_version = "0.19.4"
+current_version = "0.19.5"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
 serialize = ["{major}.{minor}.{patch}"]
 search = "{current_version}"
