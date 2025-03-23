@@ -7,8 +7,12 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions: {}
+
 jobs:
   test-and-build:
+    permissions:
+      contents: read
 
     runs-on: ubuntu-latest
 
@@ -49,6 +53,9 @@ jobs:
           path: dist
 
   test-pyodide-e2e:
+    permissions:
+      contents: read
+
     needs: [test-and-build]
 
     runs-on: ubuntu-latest
