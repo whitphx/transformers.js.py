@@ -41,17 +41,9 @@ jobs:
 
       - name: Upload the built files as an artifact
         uses: actions/upload-artifact@v4
-        if: ${{ ! startsWith(github.ref, 'refs/tags/v') }}
         with:
+          name: transformers_js_py-${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || github.sha  }}.tgz
           path: dist
-          name: transformers_js_py-${{ github.sha }}.tgz
-
-      - name: Upload the built files as an artifact (when pushed with a version tag)
-        uses: actions/upload-artifact@v4
-        if: startsWith(github.ref, 'refs/tags/v')
-        with:
-          path: dist
-          name: transformers_js_py-${{ github.ref_name }}.tgz
 
   test-pyodide-e2e:
     if: ${{ !failure() }}  # `!failure()` is necessary to avoid skipping this job after successful build: https://github.com/actions/runner/issues/491
