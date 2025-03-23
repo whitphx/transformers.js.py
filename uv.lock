@@ -1,4 +1,5 @@
 version = 1
+revision = 1
 requires-python = ">=3.10"
 
 [[package]]
@@ -43,7 +44,7 @@ name = "click"
 version = "8.1.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "platform_system == 'Windows'" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz", hash = "sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de", size = 336121 }
 wheels = [
@@ -475,7 +476,6 @@ wheels = [
 
 [[package]]
 name = "transformers-js-py"
-version = "0.19.3"
 source = { editable = "." }
 
 [package.optional-dependencies]
@@ -498,6 +498,7 @@ requires-dist = [
     { name = "numpy", marker = "extra == 'audio'", specifier = ">=2.1.2" },
     { name = "scipy", marker = "extra == 'audio'", specifier = ">=1.14.0" },
 ]
+provides-extras = ["audio"]
 
 [package.metadata.requires-dev]
 dev = [
