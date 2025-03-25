@@ -11,9 +11,6 @@ permissions: {}
 
 jobs:
   test-and-build:
-    permissions:
-      contents: read
-
     runs-on: ubuntu-latest
 
     steps:
@@ -41,7 +38,7 @@ jobs:
       - name: Type check with mypy
         run: uv run mypy .
 
-      - name: Package
+      - name: Build the package
         run: uv build
 
       - name: Upload the built files as an artifact
@@ -51,9 +48,6 @@ jobs:
           path: dist
 
   test-pyodide-e2e:
-    permissions:
-      contents: read
-
     needs: [test-and-build]
 
     runs-on: ubuntu-latest
@@ -97,7 +91,6 @@ jobs:
     needs: [test-and-build]
     if: github.event_name == 'pull_request'
     permissions:
-      contents: read
       pull-requests: write
     name: Deploy wheel file to Cloudflare Pages
     outputs:
