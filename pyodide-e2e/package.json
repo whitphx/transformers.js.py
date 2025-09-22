@@ -23,7 +23,7 @@
     "prettier": "3.5.3",
     "pyodide": "^0.26.4",
     "typescript": "^5.7.2",
-    "vite": "^6.2.2",
+    "vite": "^7.1.7",
     "vitest": "^2.1.9"
   }
 }
